@@ -57,7 +57,6 @@ const loginUser = async (req, res) => {
             [email]
         )
         const user = response.rows[0]
-        console.log(user.user_id);
         if (!user) {
             return res.status(404).json({
                 message: 'Invalid Email'

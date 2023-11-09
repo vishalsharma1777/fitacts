@@ -22,7 +22,8 @@ function SignInPage() {
   });
 
   const signInState = useSelector((state) => state.signIn);
-
+  const signUpState = useSelector((state) => state.signUp);
+  console.log(signInState);
 
   const resetPassword = () => {
     navigate('/forgot-password');
@@ -49,6 +50,14 @@ function SignInPage() {
     disableButton = false;
   }
 
+  let defaultEmail = ''
+  if(signUpState.signedupUser == undefined){
+    defaultEmail = ''
+  }
+  else{
+    defaultEmail=signUpState.signedupUser.email
+  }
+
   return (
     <>
       <form className='form-control'>
@@ -65,6 +74,7 @@ function SignInPage() {
         >
           <Input
             placeholder='Email'
+            defaultValue={defaultEmail}
             sx={{
               width: '90%'
             }}
@@ -77,8 +87,9 @@ function SignInPage() {
               'Please enter a valid email.'}
             {signInData.email.length > 0 &&
               validate(signInData.email) &&
-              signInState.signinStatus === 404 &&
-              signInState.signinMessage}
+              signInState.signinLoading ==false&&
+              signInState.signinError.response.status === 404 &&
+              signInState.signinError.response.data.message}
           </FormHelperText>
         </FormControl>
         <FormControl
@@ -114,9 +125,9 @@ function SignInPage() {
             }
           />
           <FormHelperText sx={{ color: 'red', width: '90%', height: '10px' }}>
-          {signInData.password.length > 0 &&
-              signInState.signinStatus === 401 &&
-              signInState.signinMessage}
+          {signInState.signinLoading ==false&&
+              signInState.signinError.response.status === 401 &&
+              signInState.signinError.response.data.message}
           </FormHelperText>
         </FormControl>
         <SigninButton signInData={signInData} disableButton={disableButton} />

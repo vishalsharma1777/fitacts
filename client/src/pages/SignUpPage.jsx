@@ -9,7 +9,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { Button } from '@mui/material';
+import { useSelector } from 'react-redux';
 import SignupButton from '../components/userAuthentication/SignupButton';
 
 var schema = new passwordValidator();
@@ -28,7 +28,7 @@ schema
   .not()
   .spaces(0, 'it should not have spaces');
 
-function SignUpPage() {
+function SignUpPage({setAlignment}) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -40,6 +40,7 @@ function SignUpPage() {
     password: '',
     confirmPassword: ''
   });
+  const signUpState = useSelector((state) => state.signUp);
   const handleChange = (prop) => (event) => {
     setFormData({ ...formData, [prop]: event.target.value });
   };
@@ -125,10 +126,11 @@ function SignUpPage() {
             {formData.email.length > 0 &&
               !validate(formData.email) &&
               'Please enter a valid email.'}
-            {/* {formData.email.length > 0 &&
+            {formData.email.length > 0 &&
               validate(formData.email) &&
-              authState.signUpStatus === 400 &&
-              authState.signUpError} */}
+              signUpState.signupLoading ==false&&
+              signUpState.signupError.response.status === 409 &&
+              signUpState.signupError.response.data.message}
           </FormHelperText>
         </FormControl>
         <FormControl
@@ -287,7 +289,7 @@ function SignUpPage() {
               : ''}
           </FormHelperText>
         </FormControl>
-        <SignupButton formdata={formData} disabled={disableButton} />
+        <SignupButton formdata={formData} setAlignment={setAlignment} disabled={disableButton} />
       </form>
     </>
   );

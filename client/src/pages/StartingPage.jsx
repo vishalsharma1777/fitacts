@@ -42,8 +42,8 @@ export default function StartingPage() {
               <ToggleButton value='signup'>Sign Up</ToggleButton>
             </ToggleButtonGroup>
             <div className='form-divider'>
-              {alignment == 'signin' && <SignInPage />}
-              {alignment == 'signup' && <SignUpPage />}
+              {alignment == 'signin' && <SignInPage  />}
+              {alignment == 'signup' && <SignUpPage setAlignment={setAlignment} />}
             </div>
           </div>
           <div className='disclaimer'>

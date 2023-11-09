@@ -149,3 +149,67 @@ a:link {
 .dashboard-name{
   color:#006488
 }
+
+.benifit-Buttons{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: #47a347;
+  margin-top: 1rem;
+
+}
+
+.callories-number{
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #47a347;
+  text-align: center;
+  margin-top: 1rem;
+
+}
+
+.callories{
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #006488;
+  text-align: center;
+  margin-top: 1rem;
+
+}
+
+.callories1{
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #47a347;
+  text-align: center;
+  margin-top: 1rem;
+
+}
+
+.activities-conatainer{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.activity-center{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+  color: #006488;
+}
+
+.favMarker{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width:100%
+}

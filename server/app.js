@@ -11,8 +11,9 @@ const { createTables } = require("./models/CreateTables");
 createTables();
 
 // ROUTER IMPORT
-const indexRouter = require("./routes/index");
-const userRouter = require("./routes/users")
+const indexRouter = require("./routes/index.routes")
+const userRouter = require("./routes/users.routes")
+const activityRouter = require("./routes/activities.routes")
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -20,6 +21,7 @@ app.use(bodyParser.json());
 // ROUTER
 app.use("/", indexRouter);
 app.use("/user",userRouter);
+app.use("/activity",activityRouter)
 
 
 

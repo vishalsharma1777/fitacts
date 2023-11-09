@@ -5,7 +5,8 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { signinActions } from '../../store/signinSlice';
-
+import { signupActions } from '../../store/signupSlice';
+import { activityActions } from '../../store/activitySlice';
 
 
 export default function Navbar() {
@@ -18,6 +19,8 @@ export default function Navbar() {
     setAlignment(newAlignment);
     if (newAlignment === 'logout') {
       dispatch(signinActions.siginStateReseter());
+      dispatch(signupActions.sigupStateReseter());
+      dispatch(activityActions.activityReseter());
       navigate('/');
     } else {
       navigate(`/${newAlignment}`, { state: { page: newAlignment } });

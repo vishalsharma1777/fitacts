@@ -29,6 +29,7 @@ function App() {
             <Route path='/fitscale' element={<Fitscale />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/forgot-password' element={<ResetPasword />} />
+            <Route path='*' element={<StartingPage />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>

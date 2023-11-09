@@ -17,14 +17,12 @@ function SigninButton({ signInData, disableButton }) {
   const submit = async (event) => {
     event.preventDefault();
     userLogin(data).then((res) => {
-      console.log(res);
       dispatch(signinActions.signinLoadingAction(false))
       dispatch(signinActions.signinMessageAction(res.data.message))
       dispatch(signinActions.signinStatusAction(res.status))
       dispatch(signinActions.signedinUserAction(res.data.body.user))
       dispatch(signinActions.siginSuccessAction(true))
       if(res.status==200){
-        console.log("vsvsvsd");
         axios.defaults.headers.common['Authorization'] = res.token;
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('user', res.data.body.user.name);
