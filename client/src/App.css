@@ -213,3 +213,73 @@ a:link {
   align-items: center;
   width:100%
 }
+
+.fitscale1{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.stopwatch-controls{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+
+}
+
+.stopwatch-display{
+  font-size: 2rem;
+  font-weight: 700;
+  color: #006488;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.below-stopwatch{
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+
+}
+
+.detail {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid #006488;
+
+}
+
+.detailKeys {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #006488;
+}
+
+.table-contaier{
+  margin-top: 5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+}
+
+.table-header{
+  color: red;
+}

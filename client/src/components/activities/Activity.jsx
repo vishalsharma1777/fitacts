@@ -36,7 +36,6 @@ function Activity({ activity }) {
     };
     updateFavActivity(updatingDetails)
       .then((res) => {
-        console.log(res);
       })
       .catch((err) => {
         console.log(err);

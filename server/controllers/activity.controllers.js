@@ -20,7 +20,6 @@ const getFavoriteActivitiesDetails = async (req, res) => {
         return activityDetails
     })
     Promise.all(favActivitesWithDetails).then((values) => {
-        console.log(values);
         res.json(values)
     })
 }

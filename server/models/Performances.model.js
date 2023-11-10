@@ -5,10 +5,10 @@ const createPerformanceTable = async() => {
     const performanceCreateQuery = `CREATE TABLE IF NOT EXISTS public.performances
     (
         performance_id integer NOT NULL DEFAULT nextval('performances_performance_id_seq'::regclass),
-        "performanceName" character varying COLLATE pg_catalog."default",
+        "performancename" character varying COLLATE pg_catalog."default",
         duration integer,
         distance integer,
-        speed integer,
+        speed numeric,
         mts boolean,
         user_id integer,
         activity_id integer,

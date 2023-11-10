@@ -10,12 +10,12 @@ import Loading from '../components/Common/Loading';
 import Activity from '../components/activities/Activity';
 import { getUserFavActivites } from '../apis/activitesApi';
 
+
 function Activites() {
   const dispatch = useDispatch();
   const activityState = useSelector((state) => state.activites);
   var user_id = ""
   user_id = jwtDecode(localStorage.getItem('token')).id;
-  console.log(user_id);
 
 
   useEffect(() => {
@@ -43,6 +43,8 @@ function Activites() {
   if (activityState.activityLoading) {
     return <Loading />;
   }
+
+
 
   
   return (

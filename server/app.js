@@ -14,6 +14,7 @@ createTables();
 const indexRouter = require("./routes/index.routes")
 const userRouter = require("./routes/users.routes")
 const activityRouter = require("./routes/activities.routes")
+const performanceRouter = require("./routes/performance.routes")
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -22,6 +23,7 @@ app.use(bodyParser.json());
 app.use("/", indexRouter);
 app.use("/user",userRouter);
 app.use("/activity",activityRouter)
+app.use("/performance",performanceRouter)
 
 
 

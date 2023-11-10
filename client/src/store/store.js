@@ -3,6 +3,7 @@ import signupReducer from './signupSlice'
 import signinReducer from './signinSlice'
 import activitiesReducer from './activitySlice'
 import userReducer from './userSlice'
+import performanceReducer from './PerformanceSlice'
 
 
 const store = configureStore({
@@ -11,6 +12,7 @@ const store = configureStore({
     signIn: signinReducer,
     activites:activitiesReducer,
     user:userReducer,
+    performance:performanceReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

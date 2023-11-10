@@ -1,4 +1,5 @@
 import './App.css';
+import CssBaseline from "@mui/material/CssBaseline";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material';
 import StartingPage from './pages/StartingPage';
@@ -17,8 +18,6 @@ function App() {
       }
     }
   });
-
-  
 
   return (
     <>
