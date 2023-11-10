@@ -7,13 +7,13 @@ const createUserTable = async() => {
 (
     user_id integer NOT NULL DEFAULT nextval('users_user_id_seq'::regclass),
     name character varying COLLATE pg_catalog."default",
-    email character NOT NULL UNIQUE varying COLLATE pg_catalog."default",
-    "mobileNumber" integer,
+    email character varying NOT NULL UNIQUE  COLLATE pg_catalog."default",
+    mobilenumber bigint NOT NULL UNIQUE,
     height integer,
     password character varying COLLATE pg_catalog."default",
     aadhar character varying COLLATE pg_catalog."default",
-    timeline integer[],
-    "favActivities" integer[],
+    timeline integer [],
+    favactivities integer [],
     weight integer,
     CONSTRAINT users_pkey PRIMARY KEY (user_id)
 )

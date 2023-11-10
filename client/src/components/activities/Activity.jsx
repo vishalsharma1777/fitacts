@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -6,17 +7,41 @@ import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
+import { updateFavActivity } from '../../apis/activitesApi';
+import { jwtDecode } from 'jwt-decode';
+import { useSelector } from 'react-redux';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 function Activity({ activity }) {
+  const [checked, setChecked] = React.useState(false);
   const name = activity.activityName;
   const caloriesBurnt = activity.calories;
   const image = activity.image;
+  const userState = useSelector((state) => state.user);
+  let user_id = jwtDecode(localStorage.getItem('token')).id;
+
+
+  useEffect(() => { 
+    if(userState.userFavActivities.includes(activity.activity_id)){
+      setChecked(true);
+    }
+  } , [userState.userFavActivities])
 
   const handeleChange = (e) => {
-    console.log(activity.activity_id, e.target.checked);
-  }
+    setChecked(e.target.checked);
+    const updatingDetails = {
+      user_id: user_id,
+      favActivity: activity.activity_id
+    };
+    updateFavActivity(updatingDetails)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   
 
@@ -38,21 +63,28 @@ function Activity({ activity }) {
 
           <br />
           <div className='benifit-Buttons'>
-            {activity.benifitFor.map((benifit) => {
-              return <Button variant='contained'>{benifit}</Button>;
+            {activity.benifitFor.map((benifit, index) => {
+              return (
+                <Button key={index} variant='contained'>
+                  {benifit}
+                </Button>
+              );
             })}
           </div>
         </CardContent>
         <CardActions>
-            <div className='favMarker'> <h3>Mark as fav to see in events -- </h3>
-          <Checkbox 
-            onChange={handeleChange}
-          id={activity.id}
-            {...label}
-            sx={{ '& .MuiSvgIcon-root': { fontSize: 40 } }}
-            icon={<FavoriteBorder />}
-            checkedIcon={<Favorite />}
-          />
+          <div className='favMarker'>
+            {' '}
+            <h3>Mark as fav to see in events -- </h3>
+            <Checkbox
+              checked={checked}
+              onChange={handeleChange}
+              id={activity.id}
+              {...label}
+              sx={{ '& .MuiSvgIcon-root': { fontSize: 40 } }}
+              icon={<FavoriteBorder />}
+              checkedIcon={<Favorite />}
+            />
           </div>
         </CardActions>
       </Card>

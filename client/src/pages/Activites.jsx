@@ -4,12 +4,20 @@ import Favicon from 'react-favicon';
 import { getActivities } from '../apis/activitesApi';
 import { useSelector, useDispatch } from 'react-redux';
 import { activityActions } from '../store/activitySlice';
+import {jwtDecode} from 'jwt-decode';
+import { userActions } from '../store/userSlice';
 import Loading from '../components/Common/Loading';
 import Activity from '../components/activities/Activity';
+import { getUserFavActivites } from '../apis/activitesApi';
 
 function Activites() {
   const dispatch = useDispatch();
   const activityState = useSelector((state) => state.activites);
+  var user_id = ""
+  user_id = jwtDecode(localStorage.getItem('token')).id;
+  console.log(user_id);
+
+
   useEffect(() => {
     getActivities()
       .then((res) => {
@@ -21,6 +29,14 @@ function Activites() {
         dispatch(activityActions.activityErrorAction(err));
         dispatch(activityActions.activitiesAction([]));
       });
+
+    getUserFavActivites(user_id).then
+    ((res) => {
+      dispatch(userActions.userFavActivitiesAction(res.data.body.favActivities));
+    })
+    .catch((err) => {
+      console.log(err);
+    });
     document.title = 'Fit Acts | Activites';
   }, []);
 
@@ -37,8 +53,8 @@ function Activites() {
         <h1>Mark Your Favourite Activities</h1>
       </div>
       <div className='activities-conatainer'>
-        {activityState.activities.map((activity) => {
-          return <Activity activity={activity} />;
+        {activityState.activities.map((activity,index) => {
+          return <Activity key={index} activity={activity} />;
         })}
       </div>
     </>

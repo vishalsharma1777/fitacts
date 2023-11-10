@@ -32,7 +32,7 @@ function SigninButton({ signInData, disableButton }) {
     catch((err) => {
       console.log(err);
       dispatch(signinActions.signinLoadingAction(false))
-      dispatch(signinActions.signinErrorAction(err))
+      dispatch(signinActions.signinErrorAction(err.response))
     })
   };
 

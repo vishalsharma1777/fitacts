@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard';
 import Activites from './pages/Activites';
 import Fitscale from './pages/Fitscale';
 import Profile from './pages/Profile';
+import { useEffect } from 'react';
 
 function App() {
   const theme = createTheme({
@@ -16,6 +17,9 @@ function App() {
       }
     }
   });
+
+  
+
   return (
     <>
       <ThemeProvider theme={theme}>

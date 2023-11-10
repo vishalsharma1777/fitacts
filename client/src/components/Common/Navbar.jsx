@@ -7,7 +7,8 @@ import { useDispatch } from 'react-redux';
 import { signinActions } from '../../store/signinSlice';
 import { signupActions } from '../../store/signupSlice';
 import { activityActions } from '../../store/activitySlice';
-
+import { userActions } from '../../store/userSlice';
+import { useEffect } from 'react';
 
 export default function Navbar() {
   const dispatch = useDispatch();
@@ -21,11 +22,22 @@ export default function Navbar() {
       dispatch(signinActions.siginStateReseter());
       dispatch(signupActions.sigupStateReseter());
       dispatch(activityActions.activityReseter());
+      dispatch(userActions.userReseter());
       navigate('/');
-    } else {
-      navigate(`/${newAlignment}`, { state: { page: newAlignment } });
     }
   };
+
+  useEffect(() => {
+    if (alignment === 'dashboard') {
+      navigate('/dashboard');
+    } else if (alignment === 'activities') {
+      navigate('/activities');
+    } else if (alignment === 'fitscale') {
+      navigate('/fitscale');
+    } else if (alignment === 'profile') {
+      navigate('/profile');
+    }
+  }, [alignment]);
 
   return (
     <ToggleButtonGroup

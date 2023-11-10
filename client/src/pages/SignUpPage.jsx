@@ -38,7 +38,9 @@ function SignUpPage({setAlignment}) {
     weight: '',
     height: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    favactivities:{},
+    timeline:{},
   });
   const signUpState = useSelector((state) => state.signUp);
   const handleChange = (prop) => (event) => {

@@ -16,6 +16,8 @@ function SignupButton({ formdata, disabled,setAlignment }) {
     height:+(formdata.height),
     weight:+(formdata.weight),
     password:formdata.password,
+    favactivities:formdata.favactivities,
+    timeline:formdata.timeline,
   }
   const submitSignUpData = async (event) => {
     event.preventDefault();
