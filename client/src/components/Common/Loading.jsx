@@ -1,6 +1,7 @@
 import '../../../loader.css';
 import { useEffect } from 'react';
 import Favicon from 'react-favicon';
+import Navbar from './Navbar';
 
 function Loading() {
   useEffect(() => {

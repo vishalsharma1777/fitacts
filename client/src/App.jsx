@@ -9,6 +9,7 @@ import Activites from './pages/Activites';
 import Fitscale from './pages/Fitscale';
 import Profile from './pages/Profile';
 import { useEffect } from 'react';
+import TimeineContainer from './pages/TimelineContainer';
 
 function App() {
   const theme = createTheme({
@@ -28,10 +29,11 @@ function App() {
             <Route path='/signin' element={<StartingPage />} />
             <Route path='/signup' element={<StartingPage />} />
             <Route path='/dashboard' element={<Dashboard />} />
-            <Route path='/activities' element={<Activites />} />
-            <Route path='/fitscale' element={<Fitscale />} />
-            <Route path='/profile' element={<Profile />} />
-            <Route path='/forgot-password' element={<ResetPasword />} />
+            <Route path='/dashboard/timeline' element={<TimeineContainer />} />
+            <Route path='/dashboard/activities' element={<Activites />} />
+            <Route path='/dashboard/fitscale' element={<Fitscale />} />
+            <Route path='/dashboard/profile' element={<Profile />} />
+            <Route path='/dashboard/forgot-password' element={<ResetPasword />} />
             <Route path='*' element={<StartingPage />} />
           </Routes>
         </BrowserRouter>

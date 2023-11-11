@@ -5,9 +5,11 @@ import EventSelector from '../components/fitscale/EventSelector';
 import StopWatchContainer from '../components/fitscale/StopWatchContainer';
 import { useSelector } from 'react-redux';
 import EnhancedTable from '../components/fitscale/Performances';
+import { useState } from 'react';
 
 function Fitscale() {
-  const performanceState = useSelector((state) => state.performance);
+  const [openMainModal, setOpenMainModal] = useState(false);
+
   useEffect(() => {
     document.title = 'Fit Acts | Fit Scale';
   }, []);
@@ -20,9 +22,9 @@ function Fitscale() {
       </div>
       <div className='fitscale1'>
         <EventSelector />
-        <StopWatchContainer />
+        <StopWatchContainer openMainModal={openMainModal} setOpenMainModal={setOpenMainModal}/>
       </div>
-      <EnhancedTable/>
+      <EnhancedTable openMainModal={openMainModal}/>
     </>
   );
 }

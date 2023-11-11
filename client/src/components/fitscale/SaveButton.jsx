@@ -1,11 +1,15 @@
 import { Button } from "@mui/material";
 import { createPerformance } from "../../apis/performanceApi";
+import { tableDataActions } from "../../store/TableDataSlice";
+import { useDispatch } from "react-redux";
 
 function SaveButton({performanceDetails,handleClose,handleCloseMainModal}) {
-
+    const dispatch = useDispatch();
     const handleSave =()=>{
-        console.log(performanceDetails);
-        createPerformance(performanceDetails)
+        createPerformance(performanceDetails).then
+        ((res)=>{
+            dispatch(tableDataActions.tableDataAction(res.data))
+        })
         handleClose();
         handleCloseMainModal()
     }

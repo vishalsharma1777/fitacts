@@ -1,13 +1,8 @@
-import { useEffect } from 'react';
 import Navbar from '../components/Common/Navbar';
 import Favicon from 'react-favicon';
 
-
 function Dashboard() {
   const username = localStorage.getItem('user');
-  useEffect(() => {
-    document.title = 'Fit Acts | Dashboard';
-  }, []);
   return (
     <>
       <Favicon url='favicon.png'></Favicon>
@@ -19,6 +14,8 @@ function Dashboard() {
           our Fit Acts Platform.
         </h2>
       </div>
+      <br/>
+      <br/>
     </>
   );
 }

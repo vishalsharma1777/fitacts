@@ -4,6 +4,8 @@ import signinReducer from './signinSlice'
 import activitiesReducer from './activitySlice'
 import userReducer from './userSlice'
 import performanceReducer from './PerformanceSlice'
+import tableReducer from './TableDataSlice'
+import timelineReducer from './timelineSlice'
 
 
 const store = configureStore({
@@ -13,6 +15,8 @@ const store = configureStore({
     activites:activitiesReducer,
     user:userReducer,
     performance:performanceReducer,
+    table:tableReducer,
+    timeline:timelineReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

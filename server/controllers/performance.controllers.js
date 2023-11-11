@@ -20,12 +20,12 @@ const createperformance = async (req, res) => {
             'INSERT INTO performances (user_id, performanceName, duration, distance, speed,mts,activity_id,created_at) VALUES ($1, $2, $3,$4, $5, $6,$7,$8)',
             [user_id, performanceName, duration, distance, speed,mts,activity_id,created_at]
         )
-        res.status(200).json({
-            message: 'Signed Up Succesfully',
-            body: {
-                performance: { user_id, performanceName, duration, distance, speed,mts,activity_id }
-            }
-        })
+        const response = await pool.query(
+            'SELECT * FROM performances WHERE user_id = $1 AND activity_id = $2',
+            [user_id,activity_id]
+        )
+        console.log(response.rows);
+        res.status(200).json(response.rows)
     } catch (error) {
         console.log(error);
         res.status(500).json({
@@ -37,7 +37,6 @@ const createperformance = async (req, res) => {
 const getUserPerformance = async(req,res)=>{
     const  user_id  = req.params.id
     const activity_id = req.params.activityId
-    console.log(user_id);
     try {
         const response = await pool.query(
             'SELECT * FROM performances WHERE user_id = $1 AND activity_id = $2',
@@ -53,4 +52,71 @@ const getUserPerformance = async(req,res)=>{
 
 }
 
-module.exports = { createperformance,getUserPerformance }
+const deletePerformance = async(req,res)=>{
+    const  user_id  = req.params.id
+    const performance_id = req.params.performanceId
+    const activity_id = req.params.activityId
+    console.log(performance_id);
+    try {
+        await pool.query(
+            'DELETE FROM performances WHERE user_id = $1 AND performance_id = $2',
+            [user_id,performance_id]
+        )
+        const response = await pool.query(
+            'SELECT * FROM performances WHERE user_id = $1 AND activity_id = $2',
+            [user_id,activity_id]
+        )
+        console.log(response.rows);
+        res.status(200).json(response.rows)
+    } catch (error) {
+        res.status(500).json({
+            message: { error }
+        })
+    }
+
+}
+
+const updateTimeline = async (req, res) => {
+    const  user_id  = req.params.id
+    const performance_id  = req.params.performanceId
+    console.log(performance_id);
+    try {
+        const response1 = await pool.query(
+            'SELECT * FROM users WHERE user_id = $1',
+            [user_id]
+        )
+        const user = response1.rows[0]
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found'
+            })
+        }
+        const timelineArray = user.timeline
+        if (timelineArray.includes(+performance_id)) {
+            const index = timelineArray.indexOf(+performance_id)
+            timelineArray.splice(index, 1)
+        } else {
+            timelineArray.push(+performance_id)
+        }
+
+        const response = await pool.query(
+            'UPDATE users SET timeline = $1 WHERE user_id = $2',
+            [timelineArray, user_id]
+        )
+        res.status(200).json({
+            message: 'Favourite Activity Updated',
+            body: {
+                user: { timelineArray }
+            }
+        })
+
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: { error }
+        })
+    }
+}
+
+module.exports = { createperformance,getUserPerformance ,deletePerformance,updateTimeline}

@@ -8,12 +8,13 @@ import { signinActions } from '../../store/signinSlice';
 import { signupActions } from '../../store/signupSlice';
 import { activityActions } from '../../store/activitySlice';
 import { userActions } from '../../store/userSlice';
+import { performanceActions } from '../../store/PerformanceSlice';
 import { useEffect } from 'react';
 
 export default function Navbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const page = useLocation().pathname.substring(1);
+  const page = useLocation().pathname.substring(11);
   const [alignment, setAlignment] = useState(page);
 
   const handleChange = (event, newAlignment) => {
@@ -28,14 +29,17 @@ export default function Navbar() {
   };
 
   useEffect(() => {
-    if (alignment === 'dashboard') {
-      navigate('/dashboard');
+    if (alignment === 'timeline') {
+      dispatch(performanceActions.performanceStateReseter())
+      navigate('/dashboard/timeline');
     } else if (alignment === 'activities') {
-      navigate('/activities');
+      dispatch(performanceActions.performanceStateReseter())
+      navigate('/dashboard/activities');
     } else if (alignment === 'fitscale') {
-      navigate('/fitscale');
+      dispatch(performanceActions.performanceStateReseter())
+      navigate('/dashboard/fitscale');
     } else if (alignment === 'profile') {
-      navigate('/profile');
+      navigate('/dashboard/profile');
     }
   }, [alignment]);
 
@@ -51,7 +55,7 @@ export default function Navbar() {
         height: '5rem'
       }}
     >
-      <ToggleButton value='dashboard'>DASHBOARD</ToggleButton>
+      <ToggleButton value='timeline'>TIMELINE</ToggleButton>
       <ToggleButton value='activities'>ACTIVITIES</ToggleButton>
       <ToggleButton value='fitscale'>FIT SCALE</ToggleButton>
       <ToggleButton value='profile'>PROFILE</ToggleButton>

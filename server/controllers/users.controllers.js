@@ -129,8 +129,7 @@ const updateFavActivity = async (req, res) => {
 }
 
 const getUserFavActivites = async (req, res) => {
-    const  user_id  = req.params.id
-    console.log(user_id);
+    const user_id = req.params.id
     try {
         const response = await pool.query(
             'SELECT * FROM users WHERE user_id = $1',
@@ -146,7 +145,7 @@ const getUserFavActivites = async (req, res) => {
         res.status(200).json({
             message: 'Favourite Activites Fetched',
             body: {
-                favActivities : favActivities
+                favActivities: favActivities
             }
         })
 
@@ -159,10 +158,89 @@ const getUserFavActivites = async (req, res) => {
     }
 }
 
+const userTimeline = async (req, res) => {
+    const user_id = req.params.id
+    try {
+        const response = await pool.query(
+            'SELECT * FROM users WHERE user_id = $1',
+            [user_id]
+        )
+        const user = response.rows[0]
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found'
+            })
+        }
+        const timeline = user.timeline
+        res.status(200).json({
+            message: 'timeline Fetched',
+            body: {
+                timeline: timeline
+            }
+        })
+
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: { error }
+        })
+    }
+}
+
+const getUserTimeline = async (req, res) => {
+    const user_id = req.params.id;
+    try {
+        const response = await pool.query(
+            'SELECT * FROM users WHERE user_id = $1',
+            [user_id]
+        );
+        const user = response.rows[0];
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found'
+            });
+        }
+
+        const timelineDetails = await pool.query(
+            `SELECT p.*, a.*, u.*
+            FROM performances p
+            INNER JOIN activites a ON p.activity_id = a.activity_id
+            INNER JOIN users u ON p.user_id = u.user_id
+            WHERE p.performance_id IN (SELECT unnest(timeline) FROM users WHERE user_id = $1)`,
+            [user_id]
+        );
+        res.json(timelineDetails.rows);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: 'Internal server error'
+        });
+    }
+};
 
 
+const getUserById = async (req, res) => {
+    const user_id = req.params.id;
+    try {
+        const response = await pool.query(
+            'SELECT * FROM users WHERE user_id = $1',
+            [user_id]
+        );
+        const user = response.rows[0];
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found'
+            });
+        }
+        res.json(user);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: 'Internal server error'
+        });
+    }
+}
 
-
-
-module.exports = { createUser, getUsers, loginUser, updateFavActivity, getUserFavActivites }
+module.exports = { createUser, getUsers, getUserById,loginUser,userTimeline, updateFavActivity, getUserFavActivites,getUserTimeline }
 

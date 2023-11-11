@@ -28,4 +28,5 @@ const createActivitiesTable = async() => {
 }
 
 
+
 module.exports = { createActivitiesTable }

@@ -24,7 +24,7 @@ const style = {
 
 
 
-export default function StopWatchContainer() {
+export default function StopWatchContainer({openMainModal, setOpenMainModal}) {
   const [disabled, SetDisabled] = useState(true);
   const [time, setTime] = useState(0);
   const [isTimerRunning, setisTimerRunning] = useState(false);
@@ -40,12 +40,12 @@ export default function StopWatchContainer() {
     }
   }, [activity_id, distance]);
 
-  const [open, setOpen] = React.useState(false);
+  // const [openMainModal, setOpenMainModal] = React.useState(false);
   const handleOpen = () => {
-    setOpen(true);
+    setOpenMainModal(true);
   };
   const handleCloseMainModal = () => {
-    setOpen(false);
+    setOpenMainModal(false);
     setTime(0)
   };
 
@@ -55,7 +55,7 @@ export default function StopWatchContainer() {
         Start
       </Button>
       <Modal
-        open={open}
+        open={openMainModal}
         aria-labelledby='parent-modal-title'
         aria-describedby='parent-modal-description'
       >
