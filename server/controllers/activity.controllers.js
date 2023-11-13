@@ -26,4 +26,6 @@ const getFavoriteActivitiesDetails = async (req, res) => {
 
 
 
+
+
 module.exports = { getActivities, getFavoriteActivitiesDetails }

@@ -7,7 +7,8 @@ const intialStateUser = {
     userFavActivities: [],
     userFavWithDetails:[],
     userFavWithDetailsLoading:true,
-    userFavWithDetailsError:''
+    userFavWithDetailsError:'',
+    userAdhar:false,
 }
 
 const userSlice = createSlice({
@@ -33,6 +34,9 @@ const userSlice = createSlice({
         userFavWithDetailsErrorAction(state,action){
             state.userFavWithDetailsLoading = false
             state.userFavWithDetailsError = action.payload
+        },
+        userAdharAction(state,action){
+            state.userAdhar = action.payload
         },
 
         userReseter(state) {

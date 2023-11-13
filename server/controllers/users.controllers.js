@@ -242,5 +242,48 @@ const getUserById = async (req, res) => {
     }
 }
 
-module.exports = { createUser, getUsers, getUserById,loginUser,userTimeline, updateFavActivity, getUserFavActivites,getUserTimeline }
+
+const getUserAdhar = async (req, res) => {
+    const user_id = req.params.id;
+    try {
+        const response = await pool.query(
+            'SELECT aadhar FROM users WHERE user_id = $1',
+            [user_id]
+        );
+        const aadhar = response.rows[0];
+        res.json(aadhar);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: 'Internal server error'
+        });
+    }
+}
+
+
+const uploadAadhar = async (req, res) => {
+    const user_id = req.params.id;
+    console.log(user_id);
+    // const { aadhar } = req.body;
+    console.log(req.body);
+    // try {
+    //     const response = await pool.query(
+    //         'UPDATE users SET aadhar = $1 WHERE user_id = $2',
+    //         [aadhar, user_id]
+    //     );
+    //     res.json({
+    //         message: 'Aadhar uploaded successfully',
+    //         body: {
+    //             user: { aadhar }
+    //         }
+    //     });
+    // } catch (error) {
+    //     console.log(error);
+    //     res.status(500).json({
+    //         message: 'Internal server error'
+    //     });
+    // }
+}
+
+module.exports = { createUser, uploadAadhar, getUsers,getUserAdhar, getUserById,loginUser,userTimeline, updateFavActivity, getUserFavActivites,getUserTimeline }
 

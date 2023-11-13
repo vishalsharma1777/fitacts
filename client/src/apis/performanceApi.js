@@ -16,3 +16,8 @@ export const deletePerformance = (user_id,activityId,performanceId)=>{
 export const updateTimeline = (user_id,performanceId)=>{
     return axios.put(`http://localhost:3000/performance/updatetimeline/${user_id}/${performanceId}`)
 }
+
+export const getUserTop5Performances = (user_id,activityId)=>{
+    return axios.get(`http://localhost:3000/performance/userTop5Performances/${user_id}/${activityId}`)
+}
+

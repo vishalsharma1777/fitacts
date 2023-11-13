@@ -24,7 +24,6 @@ const createperformance = async (req, res) => {
             'SELECT * FROM performances WHERE user_id = $1 AND activity_id = $2',
             [user_id,activity_id]
         )
-        console.log(response.rows);
         res.status(200).json(response.rows)
     } catch (error) {
         console.log(error);
@@ -42,7 +41,6 @@ const getUserPerformance = async(req,res)=>{
             'SELECT * FROM performances WHERE user_id = $1 AND activity_id = $2',
             [user_id,activity_id]
         )
-        console.log(response.rows);
         res.status(200).json(response.rows)
     } catch (error) {
         res.status(500).json({
@@ -56,7 +54,7 @@ const deletePerformance = async(req,res)=>{
     const  user_id  = req.params.id
     const performance_id = req.params.performanceId
     const activity_id = req.params.activityId
-    console.log(performance_id);
+
     try {
         await pool.query(
             'DELETE FROM performances WHERE user_id = $1 AND performance_id = $2',
@@ -66,7 +64,6 @@ const deletePerformance = async(req,res)=>{
             'SELECT * FROM performances WHERE user_id = $1 AND activity_id = $2',
             [user_id,activity_id]
         )
-        console.log(response.rows);
         res.status(200).json(response.rows)
     } catch (error) {
         res.status(500).json({
@@ -79,7 +76,6 @@ const deletePerformance = async(req,res)=>{
 const updateTimeline = async (req, res) => {
     const  user_id  = req.params.id
     const performance_id  = req.params.performanceId
-    console.log(performance_id);
     try {
         const response1 = await pool.query(
             'SELECT * FROM users WHERE user_id = $1',
@@ -119,4 +115,12 @@ const updateTimeline = async (req, res) => {
     }
 }
 
-module.exports = { createperformance,getUserPerformance ,deletePerformance,updateTimeline}
+const getUserTop5Performances = async (req, res) => {
+    const user_id = req.params.id
+    const activity_id = req.params.activityId
+    const top5Performances = await(await pool.query('SELECT * FROM performances WHERE user_id = $1 AND activity_id = $2 ORDER BY duration DESC LIMIT 5', [user_id, activity_id])).rows
+    console.log(top5Performances, 'top5Performances');
+    res.json(top5Performances)
+}
+
+module.exports = { getUserTop5Performances,createperformance,getUserPerformance ,deletePerformance,updateTimeline}

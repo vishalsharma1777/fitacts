@@ -10,6 +10,7 @@ import Fitscale from './pages/Fitscale';
 import Profile from './pages/Profile';
 import { useEffect } from 'react';
 import TimeineContainer from './pages/TimelineContainer';
+import TopFivePerformance from './pages/TopFivePerformances';
 
 function App() {
   const theme = createTheme({
@@ -31,6 +32,7 @@ function App() {
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/dashboard/timeline' element={<TimeineContainer />} />
             <Route path='/dashboard/activities' element={<Activites />} />
+            <Route path='/dashboard/activities/:id' element={<TopFivePerformance />} />
             <Route path='/dashboard/fitscale' element={<Fitscale />} />
             <Route path='/dashboard/profile' element={<Profile />} />
             <Route path='/dashboard/forgot-password' element={<ResetPasword />} />

@@ -20,3 +20,14 @@ export const getTimelineArray = (id)=>{
 export const getUserById = (id)=>{
     return axios.get(`http://localhost:3000/user/getUserById/${id}`)
 }
+
+export const getUserAdhar = (id)=>{
+    return axios.get(`http://localhost:3000/user/getUserAdhar/${id}`)
+}
+
+export const uploadAadhar = (id,aadhar)=>{
+    console.log({aadhar},id);
+    return axios.put(`http://localhost:3000/user/uploadAadhar/${id}`,aadhar.name)
+}
+
+

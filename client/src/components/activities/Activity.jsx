@@ -10,16 +10,19 @@ import Favorite from '@mui/icons-material/Favorite';
 import { updateFavActivity } from '../../apis/activitesApi';
 import { jwtDecode } from 'jwt-decode';
 import { useSelector } from 'react-redux';
+import {useNavigate} from 'react-router-dom';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 function Activity({ activity }) {
+  const navigate = useNavigate();
   const [checked, setChecked] = React.useState(false);
   const name = activity.activityName;
   const caloriesBurnt = activity.calories;
   const image = activity.image;
   const userState = useSelector((state) => state.user);
   let user_id = jwtDecode(localStorage.getItem('token')).id;
+
 
 
   useEffect(() => { 
@@ -42,6 +45,11 @@ function Activity({ activity }) {
       });
   };
 
+  const handleCardClick = () => {
+    const currentURL = window.location.href
+    navigate(`${activity.activity_id}`, {state: {activityName: activity.activityName}});
+  }
+
   
 
   return (
@@ -53,7 +61,7 @@ function Activity({ activity }) {
           height='140'
           image={image}
         />
-        <CardContent>
+        <CardContent onClick={handleCardClick}>
           <div className='callories1'>{name.toUpperCase()}</div>
           <div className='callories'>
             Calories burnt per hour -{' '}
