@@ -10,10 +10,7 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 
 function StarItem({ performance,timeline }) {
-  // const [timeline, setTimeline] = useState([]);
-
 const user_id = jwtDecode(localStorage.getItem('token')).id;
-
   const [checked, setChecked] = useState(timeline.includes(performance.performance_id));
   const handeleChange = (e) => {
     if (e.target.checked) {
@@ -23,16 +20,11 @@ const user_id = jwtDecode(localStorage.getItem('token')).id;
       setChecked(false);
     }
     updateTimeline(user_id,performance.performance_id)
-
   };
+  useEffect(() => {
+    setChecked(timeline.includes(performance.performance_id));
+  }, [timeline]);
 
-  // useEffect(() => {
-  //   getTimelineArray(user_id).then((res) => {
-  //     setTimeline(res.data);
-  //   });
-  // }, []);
-
-  // console.log(timeline.body.timeline);
   return (
     <Checkbox
       checked={checked}

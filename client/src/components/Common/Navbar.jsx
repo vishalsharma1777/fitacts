@@ -40,6 +40,8 @@ export default function Navbar() {
       navigate('/dashboard/fitscale');
     } else if (alignment === 'profile') {
       navigate('/dashboard/profile');
+    } else if (alignment === 'comunity') {
+      navigate('/dashboard/comunity');
     }
   }, [alignment]);
 
@@ -59,6 +61,7 @@ export default function Navbar() {
       <ToggleButton value='activities'>ACTIVITIES</ToggleButton>
       <ToggleButton value='fitscale'>FIT SCALE</ToggleButton>
       <ToggleButton value='profile'>PROFILE</ToggleButton>
+      <ToggleButton value='comunity'>COMUNITY</ToggleButton>
       <ToggleButton value='logout'>LOGOUT</ToggleButton>
     </ToggleButtonGroup>
   );

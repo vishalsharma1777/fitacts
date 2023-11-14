@@ -46,7 +46,8 @@ export default function SaveRecord({ time, isTimerRunning,handleCloseMainModal }
     speed = distance / (time / 1000);
   }
   if (!performanceState.performance_mts) {
-    speed = distance / time;
+    distance = distance * 1000;
+    speed = distance / (time/1000);
   }
 
   const user_id = jwtDecode(localStorage.getItem('token')).id;
@@ -55,7 +56,7 @@ export default function SaveRecord({ time, isTimerRunning,handleCloseMainModal }
     user_id: user_id,
     performanceName: performanceState.performance_name,
     duration: performanceState.performance_duration,
-    distance: +performanceState.performance_distance,
+    distance: +distance,
     speed: +speed.toFixed(2),
     mts: performanceState.performance_mts,
     activity_id: performanceState.performance_activity_id

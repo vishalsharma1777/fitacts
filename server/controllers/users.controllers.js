@@ -2,6 +2,10 @@ const pool = require('../config/configDB')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 require('dotenv').config();
+const fs = require('fs');
+const path = require('path');
+const { promisify } = require('util');
+const writeFile = promisify(fs.writeFile);
 
 
 const getUsers = async (req, res) => {
@@ -261,29 +265,41 @@ const getUserAdhar = async (req, res) => {
 }
 
 
+
+
 const uploadAadhar = async (req, res) => {
     const user_id = req.params.id;
-    console.log(user_id);
-    // const { aadhar } = req.body;
-    console.log(req.body);
-    // try {
-    //     const response = await pool.query(
-    //         'UPDATE users SET aadhar = $1 WHERE user_id = $2',
-    //         [aadhar, user_id]
-    //     );
-    //     res.json({
-    //         message: 'Aadhar uploaded successfully',
-    //         body: {
-    //             user: { aadhar }
-    //         }
-    //     });
-    // } catch (error) {
-    //     console.log(error);
-    //     res.status(500).json({
-    //         message: 'Internal server error'
-    //     });
-    // }
+    console.log(req.body.name);
+    const { name } = req.body;
+    try {
+        const response = await pool.query(
+            'SELECT * FROM users WHERE user_id = $1',
+            [user_id]
+        );
+        const user = response.rows[0];
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found'
+            });
+        }
+        const response1 = await pool.query(
+            'UPDATE users SET aadhar = $1 WHERE user_id = $2',
+            [name, user_id]
+        );
+        res.json({
+            message: 'Aadhar uploaded successfully',
+            body: {
+                user: { user }
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: 'Internal server error'
+        });
+    }
 }
+
 
 module.exports = { createUser, uploadAadhar, getUsers,getUserAdhar, getUserById,loginUser,userTimeline, updateFavActivity, getUserFavActivites,getUserTimeline }
 

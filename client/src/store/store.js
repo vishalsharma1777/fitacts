@@ -6,6 +6,7 @@ import userReducer from './userSlice'
 import performanceReducer from './PerformanceSlice'
 import tableReducer from './TableDataSlice'
 import timelineReducer from './timelineSlice'
+import comunityReducer from './ComunitySlice'
 
 
 const store = configureStore({
@@ -16,7 +17,8 @@ const store = configureStore({
     user:userReducer,
     performance:performanceReducer,
     table:tableReducer,
-    timeline:timelineReducer
+    timeline:timelineReducer,
+    comunity:comunityReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -3,12 +3,15 @@ import { useState } from "react";
 import { Button } from "@mui/material";
 import { uploadAadhar } from "../../apis/userapis";
 import { jwtDecode } from 'jwt-decode';
+import {useNavigate} from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { userActions } from "../../store/userSlice";
 
 
 function AdharCheck() {
     const [adharPdf, setAadharPdf] = useState(null);
+    const dispatch = useDispatch();
     const user_id = jwtDecode(localStorage.getItem('token')).id;
-    const formData = new FormData();
 
     const handleImageChange = (e) => {
         if (e.target.files[0]) {
@@ -17,11 +20,9 @@ function AdharCheck() {
     }
 
     const handleUpload = () => {
-        formData.append('aadhar', adharPdf.name);
         console.log(adharPdf.name);
-        console.log(formData);
-        uploadAadhar(user_id,formData).then((res) => {
-            console.log(res);
+        uploadAadhar(user_id,adharPdf.name).then((res) => {
+            // dispatch(userActions.userAdharAction(adharPdf.name))
         }
         ).catch((err) => {
             console.log(err);

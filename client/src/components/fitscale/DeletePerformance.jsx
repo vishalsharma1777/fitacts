@@ -17,6 +17,7 @@ function DeletePerformance({ performance }) {
       dispatch(tableDataActions.tableDataAction(res.data));
     });
   };
+  
   return (
     <IconButton onClick={deletePerformanceHandler} aria-label='delete'>
       <DeleteIcon />

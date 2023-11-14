@@ -305,3 +305,11 @@ a:link {
   margin: 1rem;
   color: #006488;
 }
+
+.peoples-list{
+  width: 90vw;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  color: #006488;
+}

@@ -14,6 +14,7 @@ const createUserTable = async() => {
     aadhar character varying COLLATE pg_catalog."default",
     timeline integer [],
     favactivities integer [],
+    following integer [],
     weight integer,
     CONSTRAINT users_pkey PRIMARY KEY (user_id)
 )

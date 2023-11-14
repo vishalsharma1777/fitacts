@@ -69,7 +69,7 @@ function Profile() {
       </Card>
       </div>
     </>
-  );
+  );EnhEnhancedTable
 }
 
 export default Profile;
