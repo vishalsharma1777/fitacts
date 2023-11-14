@@ -29,7 +29,6 @@ function Peoples() {
   }, []);
 
   let otherUsers = comunityState.comunity.filter((user) => user.user_id !== user_id);
-  console.log(otherUsers);
 
   return (
     <>

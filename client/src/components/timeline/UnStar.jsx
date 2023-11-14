@@ -10,7 +10,6 @@ function Unstar({ timelineItem ,setTimeLineArray}) {
     const user_id = jwtDecode(localStorage.getItem('token')).id;
     const deleteTimelineHandler = () => {
         updateTimeline(user_id, timelineItem.performance_id).then((res) => {
-            console.log(res.data.body.user.timelineArray);
             setTimeLineArray(res.data.body.user.timelineArray);
         }
         );

@@ -33,7 +33,6 @@ function ResetPasword() {
   };
   const submit = (e) => {
     e.preventDefault();
-    // console.log(signInData);
   };
 
   useEffect(() => {

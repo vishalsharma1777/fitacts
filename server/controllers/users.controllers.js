@@ -21,7 +21,6 @@ const getUsers = async (req, res) => {
 
 
 const createUser = async (req, res) => {
-    console.log(req.body);
     const { name, email, mobileNumber, height, weight, password, favactivities, timeline } = req.body
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
@@ -269,7 +268,6 @@ const getUserAdhar = async (req, res) => {
 
 const uploadAadhar = async (req, res) => {
     const user_id = req.params.id;
-    console.log(req.body.name);
     const { name } = req.body;
     try {
         const response = await pool.query(

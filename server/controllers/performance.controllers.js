@@ -121,7 +121,6 @@ const getUserTop5Performances = async (req, res) => {
     const user_id = req.params.id
     const activity_id = req.params.activityId
     const top5Performances = await (await pool.query('SELECT * FROM performances WHERE user_id = $1 AND activity_id = $2 ORDER BY duration DESC LIMIT 5', [user_id, activity_id])).rows
-    console.log(top5Performances, 'top5Performances');
     res.json(top5Performances)
 }
 
@@ -132,7 +131,6 @@ const userperformance = async (req, res) => {
             'SELECT * FROM performances JOIN activites ON performances.activity_id = activites.activity_id WHERE performances.user_id = $1',
             [user_id]
         )
-        console.log(response.rows);
         res.status(200).json(response.rows)
     } catch (error) {
         console.log(error)

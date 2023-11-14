@@ -9,6 +9,7 @@ import { userActions } from "../../store/userSlice";
 
 
 function AdharCheck() {
+    const navigate = useNavigate();
     const [adharPdf, setAadharPdf] = useState(null);
     const dispatch = useDispatch();
     const user_id = jwtDecode(localStorage.getItem('token')).id;
@@ -20,9 +21,8 @@ function AdharCheck() {
     }
 
     const handleUpload = () => {
-        console.log(adharPdf.name);
         uploadAadhar(user_id,adharPdf.name).then((res) => {
-            // dispatch(userActions.userAdharAction(adharPdf.name))
+            navigate('/dashboard/activities');
         }
         ).catch((err) => {
             console.log(err);

@@ -1,10 +1,6 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getUserTimeline } from '../../apis/userapis';
-import { jwtDecode } from 'jwt-decode';
-import { timelineActions } from '../../store/timelineSlice';
-import { useDispatch } from 'react-redux';
 import Timeline from '../timeline/Timeline';
 
 function FollowingTimeline({ user_id }) {
@@ -21,10 +17,15 @@ function FollowingTimeline({ user_id }) {
     document.title = 'Fit Acts | Following';
   }, []);
 
-  console.log(followingTimeline);
 
   return (
     <>
+      {followingTimeline.length === 0 && (
+        <div className='no-timeline'>
+          <h2>No timeline to show</h2>
+        </div>
+      )}
+      
       <div className='activities-conatainer'>
         {followingTimeline.map((timelineItem, index) => {
           return <Timeline key={index} timelineItem={timelineItem} />;

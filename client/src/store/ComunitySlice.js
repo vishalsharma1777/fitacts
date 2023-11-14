@@ -25,6 +25,7 @@ const comunitySlice = createSlice({
         },
         comunityStateReseter(state) {
             state.comunity = [];
+            state.followingPeople = [];
             state.loading = true;
             state.error = null;
         }

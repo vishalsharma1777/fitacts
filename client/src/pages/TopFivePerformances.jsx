@@ -21,12 +21,10 @@ function TopFivePerformance() {
   const { id } = useParams();
   const location = useLocation();
   const activityName = location.state.activityName;
-  console.log(activityName);
   const user_id = jwtDecode(localStorage.getItem('token')).id;
   useEffect(() => {
     getUserTop5Performances(user_id, id)
       .then((res) => {
-        console.log(res.data);
         setTopFivePerformances(res.data);
       })
       .catch((err) => {
@@ -34,7 +32,6 @@ function TopFivePerformance() {
       });
   }, [id]);
 
-  console.log(topFivePerformances);
 
   return (
     <>
