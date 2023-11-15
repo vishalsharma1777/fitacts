@@ -4,20 +4,29 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Favicon from 'react-favicon';
 import Navbar from '../components/Common/Navbar';
-import Peoples from '../components/comunity/Peoples';
-import Following from '../components/comunity/Following';
+import Peoples from '../components/community/Peoples';
+import Following from '../components/community/Following';
+import { useLocation } from 'react-router-dom';
 
-function Comunity() {
+function community() {
   const [alignment, setAlignment] = React.useState('peoples');
+  const location = useLocation();
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
-    // navigate(`/${newAlignment}`);
   };
+
+  useEffect(() => {
+    if(location.state!==null){
+      setAlignment(location.state.from);
+    }
+  }, [location.state]);
+
+
   return (
     <>
       <Navbar />
       <div>
-        <h1>Comunity</h1>
+        <h1>community</h1>
       </div>
       <ToggleButtonGroup
         color='primary'
@@ -32,12 +41,12 @@ function Comunity() {
         <ToggleButton value='peoples'>Peoples</ToggleButton>
         <ToggleButton value='following'>Following</ToggleButton>
       </ToggleButtonGroup>
-      <div className='comunity-divider'>
-        {alignment == 'peoples' && <Peoples />}
+      <div className='community-divider'>
+        {alignment == 'peoples' && <Peoples alignment={alignment} />}
         {alignment == 'following' && <Following />}
       </div>
     </>
   );
 }
 
-export default Comunity;
+export default community;

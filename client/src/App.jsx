@@ -1,5 +1,5 @@
 import './App.css';
-import CssBaseline from "@mui/material/CssBaseline";
+import CssBaseline from '@mui/material/CssBaseline';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material';
 import StartingPage from './pages/StartingPage';
@@ -11,7 +11,8 @@ import Profile from './pages/Profile';
 import { useEffect } from 'react';
 import TimeineContainer from './pages/TimelineContainer';
 import TopFivePerformance from './pages/TopFivePerformances';
-import Comunity from './pages/Comunity';
+import Community from './pages/Community'
+import FollowedUserTimeline from './components/community/FollowedUserTimeline';
 
 function App() {
   const theme = createTheme({
@@ -33,11 +34,18 @@ function App() {
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/dashboard/timeline' element={<TimeineContainer />} />
             <Route path='/dashboard/activities' element={<Activites />} />
-            <Route path='/dashboard/activities/:id' element={<TopFivePerformance />} />
+            <Route
+              path='/dashboard/activities/:id'
+              element={<TopFivePerformance />}
+            />
             <Route path='/dashboard/fitscale' element={<Fitscale />} />
             <Route path='/dashboard/profile' element={<Profile />} />
-            <Route path='/dashboard/comunity' element={<Comunity />} />
-            <Route path='/dashboard/forgot-password' element={<ResetPasword />} />
+            <Route path='/dashboard/community' element={<Community />} />
+            <Route
+              path='/dashboard/forgot-password'
+              element={<ResetPasword />}
+            />
+            <Route path='/dashboard/following/timeline/:id' element={<FollowedUserTimeline />} />
             <Route path='*' element={<StartingPage />} />
           </Routes>
         </BrowserRouter>

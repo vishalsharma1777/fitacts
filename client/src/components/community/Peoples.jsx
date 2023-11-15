@@ -1,4 +1,4 @@
-import { getUsersWithAllDetails } from '../../apis/comunityApi';
+import { getUsersWithAllDetails } from '../../apis/communityApi';
 import { useEffect, useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import { Button, List } from '@mui/material';
@@ -8,27 +8,31 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import FollowButton from './FollowButton';
-import { comunityActions } from '../../store/ComunitySlice';
-import { useDispatch,useSelector } from 'react-redux';
+import { communityActions } from '../../store/communitySlice';
+import { useDispatch, useSelector } from 'react-redux';
 
-function Peoples() {
-    const dispatch = useDispatch();
-    const comunityState = useSelector((state) => state.comunity);
+function Peoples({ alignment }) {
+  const dispatch = useDispatch();
+  const communityState = useSelector((state) => state.community);
   const user_id = jwtDecode(localStorage.getItem('token')).id;
 
   useEffect(() => {
+    dispatch(communityActions.communityStateReseter());
+
     getUsersWithAllDetails()
       .then((res) => {
-        dispatch(comunityActions.getComunitySuccess(res.data));
+        dispatch(communityActions.getcommunitySuccess(res.data));
       })
       .catch((err) => {
-        dispatch(comunityActions.getComunityFailure(err.message))
+        dispatch(communityActions.getcommunityFailure(err.message));
       });
 
-    document.title = 'Fit Acts | Comunity';
-  }, []);
+    document.title = 'Fit Acts | community';
+  }, [alignment]);
 
-  let otherUsers = comunityState.comunity.filter((user) => user.user_id !== user_id);
+  let otherUsers = communityState.community.filter(
+    (user) => user.user_id !== user_id
+  );
 
   return (
     <>
@@ -47,13 +51,13 @@ function Peoples() {
                 />
                 <ListItemText
                   sx={{ width: '60%' }}
-                  primary={user.favactivities.map((activity) => {
+                  primary={user.favactivities.map((activity,index) => {
                     return (
-                      <Button>{activity.activityName.toUpperCase()}</Button>
+                      <Button key={index}>{activity.activityName.toUpperCase()}</Button>
                     );
                   })}
                 />
-                <FollowButton user_id={user.user_id} />
+                <FollowButton user_id={user.user_id} alignment={alignment} />
               </ListItem>
               <Divider />
             </div>

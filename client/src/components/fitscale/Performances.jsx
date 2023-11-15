@@ -44,7 +44,7 @@ function PerformanceTable() {
       <Checkbox defaultChecked label='Show All' onChange={handleChange} /> Show
       All
       <div className='table-contaier'>
-        {tableState.tableData.length > 0 && (
+        {tableState.tableData!==null && (
           <EnhancedTable timeline={timeline} />
           )}
       </div>

@@ -1,21 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    comunity: [],
+    community: [],
     loading: true,
     error: null,
     followingPeople: [],
 };
 
-const comunitySlice = createSlice({
-    name: "comunity",
+const communitySlice = createSlice({
+    name: "community",
     initialState,
     reducers: {
-        getComunitySuccess(state, action) {
+        getcommunitySuccess(state, action) {
             state.loading = false;
-            state.comunity = action.payload;
+            state.community = action.payload;
         },
-        getComunityFailure(state, action) {
+        getcommunityFailure(state, action) {
             state.loading = false;
             state.error = action.payload;
         },
@@ -23,8 +23,8 @@ const comunitySlice = createSlice({
             state.loading = false;
             state.followingPeople = action.payload;
         },
-        comunityStateReseter(state) {
-            state.comunity = [];
+        communityStateReseter(state) {
+            state.community = [];
             state.followingPeople = [];
             state.loading = true;
             state.error = null;
@@ -33,7 +33,7 @@ const comunitySlice = createSlice({
 });
 
 
-export const comunityActions = comunitySlice.actions;
+export const communityActions = communitySlice.actions;
 
-export default comunitySlice.reducer;
+export default communitySlice.reducer;
 

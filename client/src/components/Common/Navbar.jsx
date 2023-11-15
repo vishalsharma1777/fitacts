@@ -4,14 +4,14 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { activityActions } from "../../store/activitySlice";
-import { comunityActions } from "../../store/ComunitySlice";
-import { performanceActions } from "../../store/PerformanceSlice";
-import { signinActions } from "../../store/signinSlice";
-import {signupActions} from "../../store/signupSlice";
-import { tableDataActions } from "../../store/TableDataSlice";
-import { timelineActions } from "../../store/timelineSlice";
-import { userActions } from "../../store/userSlice";
+import { activityActions } from '../../store/activitySlice';
+import { communityActions } from '../../store/communitySlice';
+import { performanceActions } from '../../store/PerformanceSlice';
+import { signinActions } from '../../store/signinSlice';
+import { signupActions } from '../../store/signupSlice';
+import { tableDataActions } from '../../store/TableDataSlice';
+import { timelineActions } from '../../store/timelineSlice';
+import { userActions } from '../../store/userSlice';
 import { useEffect } from 'react';
 
 export default function Navbar() {
@@ -24,7 +24,7 @@ export default function Navbar() {
     setAlignment(newAlignment);
     if (newAlignment === 'logout') {
       dispatch(activityActions.activityReseter());
-      dispatch(comunityActions.comunityStateReseter());
+      dispatch(communityActions.communityStateReseter());
       dispatch(performanceActions.performanceStateReseter());
       dispatch(signinActions.siginStateReseter());
       dispatch(signupActions.sigupStateReseter());
@@ -49,8 +49,8 @@ export default function Navbar() {
       navigate('/dashboard/fitscale');
     } else if (alignment === 'profile') {
       navigate('/dashboard/profile');
-    } else if (alignment === 'comunity') {
-      navigate('/dashboard/comunity');
+    } else if (alignment === 'community') {
+      navigate('/dashboard/community');
     }
   }, [alignment]);
 
@@ -70,7 +70,7 @@ export default function Navbar() {
       <ToggleButton value='activities'>ACTIVITIES</ToggleButton>
       <ToggleButton value='fitscale'>FIT SCALE</ToggleButton>
       <ToggleButton value='profile'>PROFILE</ToggleButton>
-      <ToggleButton value='comunity'>COMUNITY</ToggleButton>
+      <ToggleButton value='community'>COMMUNITY</ToggleButton>
       <ToggleButton value='logout'>LOGOUT</ToggleButton>
     </ToggleButtonGroup>
   );

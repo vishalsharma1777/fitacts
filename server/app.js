@@ -15,17 +15,17 @@ const indexRouter = require("./routes/index.routes")
 const userRouter = require("./routes/users.routes")
 const activityRouter = require("./routes/activities.routes")
 const performanceRouter = require("./routes/performance.routes")
-const comunityRouter = require("./routes/comunity.routes")
+const communityRouter = require("./routes/community.routes")
 
 app.use(cors());
 app.use(bodyParser.json());
 
 // ROUTER
 app.use("/", indexRouter);
-app.use("/user",userRouter);
-app.use("/activity",activityRouter)
-app.use("/performance",performanceRouter)
-app.use("/comunity",comunityRouter)
+app.use("/user", userRouter);
+app.use("/activity", activityRouter)
+app.use("/performance", performanceRouter)
+app.use("/community", communityRouter)
 
 
 

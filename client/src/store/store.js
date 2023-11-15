@@ -6,19 +6,19 @@ import userReducer from './userSlice'
 import performanceReducer from './PerformanceSlice'
 import tableReducer from './TableDataSlice'
 import timelineReducer from './timelineSlice'
-import comunityReducer from './ComunitySlice'
+import communityReducer from './communitySlice'
 
 
 const store = configureStore({
   reducer: {
     signUp: signupReducer,
     signIn: signinReducer,
-    activites:activitiesReducer,
-    user:userReducer,
-    performance:performanceReducer,
-    table:tableReducer,
-    timeline:timelineReducer,
-    comunity:comunityReducer
+    activites: activitiesReducer,
+    user: userReducer,
+    performance: performanceReducer,
+    table: tableReducer,
+    timeline: timelineReducer,
+    community: communityReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

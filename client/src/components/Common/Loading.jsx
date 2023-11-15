@@ -9,7 +9,7 @@ function Loading() {
   }, []);
   return (
     <>
-      <Favicon url='favicon.png'></Favicon>
+      <Favicon url='https://as2.ftcdn.net/v2/jpg/03/17/39/23/1000_F_317392365_DbNbOQyBnMmn1ahAGc3cdotSXYyI7BoA.jpg'></Favicon>
       <div className='loaderContainer'>
         <span className='loader'></span>
       </div>
