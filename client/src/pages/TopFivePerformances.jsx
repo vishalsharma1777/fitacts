@@ -14,6 +14,7 @@ import convertMsToTime from '../helperFunctions/timeconverter';
 import dateConverter from '../helperFunctions/dateConverter';
 import { useLocation } from 'react-router-dom';
 import Navbar from '../components/Common/Navbar';
+import StartingPage from './StartingPage';
 
 
 function TopFivePerformance() {
@@ -21,6 +22,9 @@ function TopFivePerformance() {
   const { id } = useParams();
   const location = useLocation();
   const activityName = location.state.activityName;
+  if(localStorage.getItem('token') == null){
+    return <StartingPage/>
+  }
   const user_id = jwtDecode(localStorage.getItem('token')).id;
   useEffect(() => {
     getUserTop5Performances(user_id, id)

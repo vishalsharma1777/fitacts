@@ -8,9 +8,13 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { Button } from '@mui/material';
+import StartingPage from './StartingPage';
 
 function Profile() {
   const [user, setUser] = useState({});
+  if(localStorage.getItem('token') == null){
+    return <StartingPage/>
+  }
   const user_id = jwtDecode(localStorage.getItem('token')).id;
   useEffect(() => {
     getUserById(user_id)

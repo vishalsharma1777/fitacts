@@ -11,7 +11,6 @@ const createperformance = async (req, res) => {
         activity_id
     } = req.body
 
-    //make variable created_at without timezone
     const created_at = new Date()
 
 

@@ -33,6 +33,7 @@ export default function Navbar() {
       dispatch(userActions.userReseter());
       localStorage.removeItem('token');
       localStorage.removeItem('user');
+      localStorage.removeItem('ClickedUser');
       navigate('/');
     }
   };

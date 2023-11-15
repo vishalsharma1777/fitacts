@@ -191,8 +191,12 @@ const userTimeline = async (req, res) => {
     }
 }
 
-const getUserTimeline = async (req, res) => {
+const getFollowerTimeline = async (req, res) => {
     const user_id = req.params.id;
+    const page = parseInt(req.query.page || 1);
+    console.log(page);
+    const itemsPerPage = 2;
+
     try {
         const response = await pool.query(
             'SELECT * FROM users WHERE user_id = $1',
@@ -204,16 +208,25 @@ const getUserTimeline = async (req, res) => {
                 message: 'User not found'
             });
         }
-
+        const offset = (page - 1) * itemsPerPage;
         const timelineDetails = await pool.query(
             `SELECT p.*, a.*, u.*
-            FROM performances p
-            INNER JOIN activites a ON p.activity_id = a.activity_id
-            INNER JOIN users u ON p.user_id = u.user_id
-            WHERE p.performance_id IN (SELECT unnest(timeline) FROM users WHERE user_id = $1)`,
+      FROM performances p
+      INNER JOIN activites a ON p.activity_id = a.activity_id
+      INNER JOIN users u ON p.user_id = u.user_id
+      WHERE p.performance_id IN (SELECT unnest(timeline) FROM users WHERE user_id = $1)
+      ORDER BY p.performance_id DESC
+      LIMIT $2 OFFSET $3`,
+            [user_id, itemsPerPage, offset]
+        );
+        const totalCountResponse = await pool.query(
+            'SELECT COUNT(*) FROM performances WHERE user_id = $1',
             [user_id]
         );
-        res.json(timelineDetails.rows);
+        const totalCount = parseInt(totalCountResponse.rows[0].count, 10);
+
+        res.json({ timeline: timelineDetails.rows, total: totalCount });
+        console.log(timelineDetails.rows);
     } catch (error) {
         console.log(error);
         res.status(500).json({
@@ -298,6 +311,38 @@ const uploadAadhar = async (req, res) => {
     }
 }
 
+const getUserTimeline = async (req, res) => {
+    const user_id = req.params.id;
+    try {
+        const response = await pool.query(
+            'SELECT * FROM users WHERE user_id = $1',
+            [user_id]
+        );
+        const user = response.rows[0];
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found'
+            });
+        }
 
-module.exports = { createUser, uploadAadhar, getUsers,getUserAdhar, getUserById,loginUser,userTimeline, updateFavActivity, getUserFavActivites,getUserTimeline }
+        const timelineDetails = await pool.query(
+            `SELECT p.*, a.*, u.*
+            FROM performances p
+            INNER JOIN activites a ON p.activity_id = a.activity_id
+            INNER JOIN users u ON p.user_id = u.user_id
+            WHERE p.performance_id IN (SELECT unnest(timeline) FROM users WHERE user_id = $1)`,
+            [user_id]
+        );
+        res.json(timelineDetails.rows);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: 'Internal server error'
+        });
+    }
+};
+
+
+
+module.exports = { createUser, uploadAadhar, getFollowerTimeline, getUsers, getUserAdhar, getUserById, loginUser, userTimeline, updateFavActivity, getUserFavActivites, getUserTimeline }
 

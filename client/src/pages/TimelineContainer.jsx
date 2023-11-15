@@ -7,10 +7,14 @@ import { getUserTimeline } from '../apis/userapis';
 import { jwtDecode } from 'jwt-decode';
 import { timelineActions } from '../store/timelineSlice';
 import { useDispatch } from 'react-redux';
+import StartingPage from './StartingPage';
 
 function TimeineContainer() {
   const dispatch = useDispatch();
   const timelineState = useSelector((state) => state.timeline);
+  if(localStorage.getItem('token') == null){
+    return <StartingPage/>
+  }
   const user_id = jwtDecode(localStorage.getItem('token')).id;
   useEffect(() => {
     getUserTimeline(user_id)

@@ -10,7 +10,9 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 function Timeline({ timelineItem}) {
   return (
     <>
-      <Card sx={{ maxWidth: 400 }}>
+      <Card sx={{ maxWidth: 400 ,
+      margin: '40px',
+      }}>
         <CardMedia
           component='img'
           alt='green iguana'

@@ -8,9 +8,16 @@ export const createUser = (sigupdata) => {
     return axios.post('http://localhost:3000/user/createUser', sigupdata)
 }
 
-export const getUserTimeline = (id) => {
-    return axios.get(`http://localhost:3000/user/getUserTimeline/${id}`)
-}
+export const getFollowerTimeline = (id, page) => {
+    return axios.get(`http://localhost:3000/user/getFollowerTimeline/${id}`, {
+      params: { page }
+    });
+  };
+
+
+  export const getUserTimeline = (id, page) => {
+    return axios.get(`http://localhost:3000/user/getUserTimeline/${id}`);
+  };
 
 
 export const getTimelineArray = (id) => {

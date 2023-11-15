@@ -1,30 +1,63 @@
-import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { getUserTimeline } from '../../apis/userapis';
+import { useEffect, useState, useRef } from 'react';
+import { getFollowerTimeline } from '../../apis/userapis';
 import Timeline from '../timeline/Timeline';
 import Navbar from '../Common/Navbar';
 import { Button } from '@mui/material';
+import StartingPage from '../../pages/StartingPage';
+import { useParams, useNavigate } from 'react-router-dom';
 
 function FollowedUserTimeline() {
-  const navigate = useNavigate();
+  const [followingTimeline, setFollowingTimeline] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [totalDataLength, setTotalDataLength] = useState(0);
+  const [page, setPage] = useState(1);
   const user_id = useParams().id;
   const followedUser = localStorage.getItem('ClickedUser');
-  const [followingTimeline, setFollowingTimeline] = useState([]);
+  const timelineContainerRef = useRef(null);
+  const navigate = useNavigate();
+
+  if (!localStorage.getItem('token')) {
+    return <StartingPage />;
+  }
+
+  const loadMoreTimeline = async () => {
+    try {
+      setLoading(true);
+      const res = await getFollowerTimeline(user_id, page);
+      const newData = res.data.timeline;
+      setTotalDataLength(res.data.total);
+      setFollowingTimeline((prevTimeline) => [...prevTimeline, ...newData]);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    getUserTimeline(user_id)
-      .then((res) => {
-        setFollowingTimeline(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
+    loadMoreTimeline();
     document.title = 'Fit Acts | Following';
-  }, []);
+  }, [page]);
 
+  const handleScroll = () => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop + 1 >=
+        document.documentElement.scrollHeight &&
+      !loading &&
+      followingTimeline.length < totalDataLength
+    ) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [loading, followingTimeline.length, totalDataLength]);
+
+  
   const handleClick = () => {
-    navigate('/dashboard/community',{state: { from: 'following' }});
+    navigate('/dashboard/community', { state: { from: 'following' } });
     localStorage.removeItem('ClickedUser');
   };
 
@@ -34,17 +67,18 @@ function FollowedUserTimeline() {
       <Button variant='contained' color='success' onClick={handleClick}>
         Back
       </Button>
-      <h1>Seeing timeline of {followedUser}</h1>
+      <h1 className='community-center'>Seeing Timeline Of {followedUser}</h1>
       {followingTimeline.length === 0 && (
         <div className='no-timeline'>
           <h2>No timeline to show</h2>
         </div>
       )}
 
-      <div className='activities-conatainer'>
-        {followingTimeline.map((timelineItem, index) => {
-          return <Timeline key={index} timelineItem={timelineItem} />;
-        })}
+      <div className='activities-container' ref={timelineContainerRef}>
+        {followingTimeline.map((timelineItem, index) => (
+          <Timeline key={index} timelineItem={timelineItem} />
+        ))}
+        {loading && <div>Loading...</div>}
       </div>
     </>
   );

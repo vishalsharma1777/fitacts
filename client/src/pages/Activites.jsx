@@ -11,12 +11,19 @@ import Activity from '../components/activities/Activity';
 import { getUserFavActivites } from '../apis/activitesApi';
 import { getUserAdhar } from '../apis/userapis';
 import AdharCheck from '../components/adhar/AdharCheck';
+import { useNavigate } from 'react-router-dom';
+import StartingPage from './StartingPage';
 
 function Activites() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const activityState = useSelector((state) => state.activites);
   const userState = useSelector((state) => state.user);
   var user_id = '';
+  if(localStorage.getItem('token') == null){
+    return <StartingPage/>
+  }
+
   user_id = jwtDecode(localStorage.getItem('token')).id;
 
   useEffect(() => {

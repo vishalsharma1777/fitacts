@@ -6,10 +6,13 @@ import StopWatchContainer from '../components/fitscale/StopWatchContainer';
 import { useSelector } from 'react-redux';
 import EnhancedTable from '../components/fitscale/Performances';
 import { useState } from 'react';
+import StartingPage from './StartingPage';
 
 function Fitscale() {
   const [openMainModal, setOpenMainModal] = useState(false);
-
+  if(localStorage.getItem('token') == null){
+    return <StartingPage/>
+  }
   useEffect(() => {
     document.title = 'Fit Acts | Fit Scale';
   }, []);
