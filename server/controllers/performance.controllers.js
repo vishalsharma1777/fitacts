@@ -20,8 +20,8 @@ const createperformance = async (req, res) => {
             [user_id, performanceName, duration, distance, speed, mts, activity_id, created_at]
         )
         const response = await pool.query(
-            'SELECT * FROM performances WHERE user_id = $1 AND activity_id = $2',
-            [user_id, activity_id]
+            'SELECT * FROM performances JOIN activites ON performances.activity_id = activites.activity_id WHERE user_id = $1',
+            [user_id]
         )
         res.status(200).json(response.rows)
     } catch (error) {
@@ -54,7 +54,6 @@ const getUserPerformance = async (req, res) => {
 const deletePerformance = async (req, res) => {
     const user_id = req.params.id
     const performance_id = req.params.performanceId
-    const activity_id = req.params.activityId
 
     try {
         await pool.query(
@@ -62,8 +61,8 @@ const deletePerformance = async (req, res) => {
             [user_id, performance_id]
         )
         const response = await pool.query(
-            'SELECT * FROM performances WHERE user_id = $1 AND activity_id = $2',
-            [user_id, activity_id]
+            'SELECT * FROM performances JOIN activites ON performances.activity_id = activites.activity_id WHERE user_id = $1',
+            [user_id]
         )
         res.status(200).json(response.rows)
     } catch (error) {

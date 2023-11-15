@@ -194,7 +194,6 @@ const userTimeline = async (req, res) => {
 const getFollowerTimeline = async (req, res) => {
     const user_id = req.params.id;
     const page = parseInt(req.query.page || 1);
-    console.log(page);
     const itemsPerPage = 2;
 
     try {
@@ -226,7 +225,6 @@ const getFollowerTimeline = async (req, res) => {
         const totalCount = parseInt(totalCountResponse.rows[0].count, 10);
 
         res.json({ timeline: timelineDetails.rows, total: totalCount });
-        console.log(timelineDetails.rows);
     } catch (error) {
         console.log(error);
         res.status(500).json({
