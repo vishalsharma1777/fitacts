@@ -46,7 +46,6 @@ function Activity({ activity }) {
   };
 
   const handleCardClick = () => {
-    const currentURL = window.location.href
     navigate(`${activity.activity_id}`, {state: {activityName: activity.activityName}});
   }
 

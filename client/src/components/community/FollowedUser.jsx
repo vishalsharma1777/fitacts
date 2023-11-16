@@ -1,10 +1,4 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { jwtDecode } from 'jwt-decode';
-import { getUsersFollowing } from '../../apis/communityApi';
-import { communityActions } from '../../store/communitySlice';
-import { Button, List } from '@mui/material';
 import { ListItemText } from '@mui/material';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';

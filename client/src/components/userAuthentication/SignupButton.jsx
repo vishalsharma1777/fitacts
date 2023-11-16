@@ -18,6 +18,7 @@ function SignupButton({ formdata, disabled,setAlignment }) {
     password:formdata.password,
     favactivities:formdata.favactivities,
     timeline:formdata.timeline,
+    following:formdata.following,
   }
   const submitSignUpData = async (event) => {
     event.preventDefault();

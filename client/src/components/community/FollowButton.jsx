@@ -1,14 +1,13 @@
 import { Button } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { jwtDecode } from 'jwt-decode';
 import { addOrRemoveFollowing } from '../../apis/communityApi';
 import { useEffect, useState } from 'react';
 
-function FollowButton({ user_id,alignment }) {
+function FollowButton({ user_id }) {
   const [following, setFollowing] = useState(false);
   const communityState = useSelector((state) => state.community);
   const currentUser_id = jwtDecode(localStorage.getItem('token')).id;
-
   useEffect(() => {
     if (
       communityState.community
@@ -21,8 +20,9 @@ function FollowButton({ user_id,alignment }) {
 
   const handleFollow = () => {
     document.getElementById(user_id).disabled = true;
-    document.getElementById(user_id).innerHTML = 'Loading...';
-    addOrRemoveFollowing(currentUser_id, user_id).then(() => {
+    document.getElementById(user_id).innerHTML = 'Updating...';
+    addOrRemoveFollowing(currentUser_id, user_id).then((res) => {
+      console.log(res);
       document.getElementById(user_id).disabled = false;
       document.getElementById(user_id).innerHTML = following
         ? 'Follow'

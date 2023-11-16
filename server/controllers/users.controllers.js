@@ -21,7 +21,7 @@ const getUsers = async (req, res) => {
 
 
 const createUser = async (req, res) => {
-    const { name, email, mobileNumber, height, weight, password, favactivities, timeline } = req.body
+    const { name, email, mobileNumber, height, weight, password, favactivities, timeline,following } = req.body
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
     const response = await pool.query(
@@ -37,8 +37,8 @@ const createUser = async (req, res) => {
     }
     try {
         await pool.query(
-            'INSERT INTO users (name, email, mobileNumber, height, weight, password,favactivities,timeline) VALUES ($1, $2, $3,$4, $5, $6,$7,$8)',
-            [name, email, mobileNumber, height, weight, hashedPassword, favactivities, timeline]
+            'INSERT INTO users (name, email, mobileNumber, height, weight, password,favactivities,timeline,following) VALUES ($1, $2, $3,$4, $5, $6,$7,$8,$9)',
+            [name, email, mobileNumber, height, weight, hashedPassword, favactivities, timeline,following]
         )
         res.status(200).json({
             message: 'Signed Up Succesfully',

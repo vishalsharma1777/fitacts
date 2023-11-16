@@ -4,14 +4,11 @@ import { Button } from "@mui/material";
 import { uploadAadhar } from "../../apis/userapis";
 import { jwtDecode } from 'jwt-decode';
 import {useNavigate} from 'react-router-dom';
-import { useDispatch } from "react-redux";
-import { userActions } from "../../store/userSlice";
 
 
 function AdharCheck() {
     const navigate = useNavigate();
     const [adharPdf, setAadharPdf] = useState(null);
-    const dispatch = useDispatch();
     const user_id = jwtDecode(localStorage.getItem('token')).id;
 
     const handleImageChange = (e) => {
@@ -29,8 +26,6 @@ function AdharCheck() {
         });
 
     }
-
-    console.log(adharPdf);
 
     return (
         <div className="aadhar-center">
