@@ -25,7 +25,7 @@ const createUser = async (req, res) => {
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
     const response = await pool.query(
-        'SELECT * FROM users WHERE email = $1',
+        'SELECT email FROM users WHERE email = $1',
         [email]
     )
 
@@ -94,7 +94,7 @@ const updateFavActivity = async (req, res) => {
     const { favActivity } = req.body
     try {
         const response1 = await pool.query(
-            'SELECT * FROM users WHERE user_id = $1',
+            'SELECT user_id,favactivities FROM users WHERE user_id = $1',
             [user_id]
         )
         const user = response1.rows[0]
@@ -135,7 +135,7 @@ const getUserFavActivites = async (req, res) => {
     const user_id = req.params.id
     try {
         const response = await pool.query(
-            'SELECT * FROM users WHERE user_id = $1',
+            'SELECT user_id,favactivities FROM users WHERE user_id = $1',
             [user_id]
         )
         const user = response.rows[0]
@@ -165,7 +165,7 @@ const userTimeline = async (req, res) => {
     const user_id = req.params.id
     try {
         const response = await pool.query(
-            'SELECT * FROM users WHERE user_id = $1',
+            'SELECT user_id,timeline FROM users WHERE user_id = $1',
             [user_id]
         )
         const user = response.rows[0]
@@ -198,7 +198,7 @@ const getFollowerTimeline = async (req, res) => {
 
     try {
         const response = await pool.query(
-            'SELECT * FROM users WHERE user_id = $1',
+            'SELECT user_id FROM users WHERE user_id = $1',
             [user_id]
         );
         const user = response.rows[0];
@@ -209,7 +209,7 @@ const getFollowerTimeline = async (req, res) => {
         }
         const offset = (page - 1) * itemsPerPage;
         const timelineDetails = await pool.query(
-            `SELECT p.*, a.*, u.*
+            `SELECT p.*, a.*, u.user_id
       FROM performances p
       INNER JOIN activites a ON p.activity_id = a.activity_id
       INNER JOIN users u ON p.user_id = u.user_id
@@ -238,7 +238,7 @@ const getUserById = async (req, res) => {
     const user_id = req.params.id;
     try {
         const response = await pool.query(
-            'SELECT * FROM users WHERE user_id = $1',
+            'SELECT u.name,u.email,u.user_id,u.mobilenumber,u.height,u.weight FROM users u WHERE user_id = $1',
             [user_id]
         );
         const user = response.rows[0];
@@ -282,7 +282,7 @@ const uploadAadhar = async (req, res) => {
     const { name } = req.body;
     try {
         const response = await pool.query(
-            'SELECT * FROM users WHERE user_id = $1',
+            'SELECT aadhar FROM users WHERE user_id = $1',
             [user_id]
         );
         const user = response.rows[0];
@@ -313,7 +313,7 @@ const getUserTimeline = async (req, res) => {
     const user_id = req.params.id;
     try {
         const response = await pool.query(
-            'SELECT * FROM users WHERE user_id = $1',
+            'SELECT user_id FROM users WHERE user_id = $1',
             [user_id]
         );
         const user = response.rows[0];
@@ -324,7 +324,7 @@ const getUserTimeline = async (req, res) => {
         }
 
         const timelineDetails = await pool.query(
-            `SELECT p.*, a.*, u.*
+            `SELECT p.*, a.*, u.user_id
             FROM performances p
             INNER JOIN activites a ON p.activity_id = a.activity_id
             INNER JOIN users u ON p.user_id = u.user_id

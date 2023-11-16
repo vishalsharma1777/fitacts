@@ -78,7 +78,7 @@ const updateTimeline = async (req, res) => {
     const performance_id = req.params.performanceId
     try {
         const response1 = await pool.query(
-            'SELECT * FROM users WHERE user_id = $1',
+            'SELECT timeline FROM users WHERE user_id = $1',
             [user_id]
         )
         const user = response1.rows[0]
