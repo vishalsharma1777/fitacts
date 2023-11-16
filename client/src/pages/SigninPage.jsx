@@ -12,6 +12,7 @@ import LoginIssues from '../components/userAuthentication/LoginIssues';
 import { useNavigate } from 'react-router-dom';
 import SigninButton from '../components/userAuthentication/SigninButton';
 import { useSelector } from 'react-redux';
+import FeedBack from '../components/Common/Feedback';
 
 function SignInPage() {
   const navigate = useNavigate();
@@ -20,11 +21,9 @@ function SignInPage() {
     email: '',
     password: ''
   });
-  
 
   const signInState = useSelector((state) => state.signIn);
   const signUpState = useSelector((state) => state.signUp);
-
 
   const resetPassword = () => {
     navigate('/forgot-password');
@@ -51,16 +50,16 @@ function SignInPage() {
     disableButton = false;
   }
 
-  let defaultEmail = ''
-  if(signUpState.signedupUser == undefined){
-    defaultEmail = ''
-  }
-  else{
-    defaultEmail=signUpState.signedupUser.email
+  let defaultEmail = '';
+  if (signUpState.signedupUser == undefined) {
+    defaultEmail = '';
+  } else {
+    defaultEmail = signUpState.signedupUser.email;
   }
 
   return (
     <>
+      <FeedBack />
       <form className='form-control'>
         <FormControl
           sx={{
@@ -88,8 +87,8 @@ function SignInPage() {
               'Please enter a valid email.'}
             {signInData.email.length > 0 &&
               validate(signInData.email) &&
-              signInState.signinLoading ==false &&
-              signInState.siginSuccess==false &&
+              signInState.signinLoading == false &&
+              signInState.siginSuccess == false &&
               signInState.signinError.status === 404 &&
               signInState.signinError.data.message}
           </FormHelperText>
@@ -127,15 +126,15 @@ function SignInPage() {
             }
           />
           <FormHelperText sx={{ color: 'red', width: '90%', height: '10px' }}>
-          {signInState.signinLoading ==false&&
-              signInState.siginSuccess==false&&
+            {signInState.signinLoading == false &&
+              signInState.siginSuccess == false &&
               signInState.signinError.status === 401 &&
               signInState.signinError.data.message}
           </FormHelperText>
         </FormControl>
         <SigninButton signInData={signInData} disableButton={disableButton} />
         <div className='login-belowButtons'>
-          <div className='reset-password' onClick={resetPassword} >
+          <div className='reset-password' onClick={resetPassword}>
             {' '}
             RESET PASSWORD
           </div>

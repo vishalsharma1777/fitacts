@@ -22,7 +22,6 @@ function FollowButton({ user_id }) {
     document.getElementById(user_id).disabled = true;
     document.getElementById(user_id).innerHTML = 'Updating...';
     addOrRemoveFollowing(currentUser_id, user_id).then((res) => {
-      console.log(res);
       document.getElementById(user_id).disabled = false;
       document.getElementById(user_id).innerHTML = following
         ? 'Follow'

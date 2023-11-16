@@ -5,10 +5,10 @@ const intialStateUser = {
     userError: null,
     user: null,
     userFavActivities: [],
-    userFavWithDetails:[],
-    userFavWithDetailsLoading:true,
-    userFavWithDetailsError:'',
-    userAdhar:false,
+    userFavWithDetails: [],
+    userFavWithDetailsLoading: true,
+    userFavWithDetailsError: '',
+    userAdhar: false,
 }
 
 const userSlice = createSlice({
@@ -27,15 +27,15 @@ const userSlice = createSlice({
         userFavActivitiesAction(state, action) {
             state.userFavActivities = action.payload
         },
-        userFavWithDetailsAction(state,action){
+        userFavWithDetailsAction(state, action) {
             state.userFavWithDetailsLoading = false
             state.userFavWithDetails = action.payload
         },
-        userFavWithDetailsErrorAction(state,action){
+        userFavWithDetailsErrorAction(state, action) {
             state.userFavWithDetailsLoading = false
             state.userFavWithDetailsError = action.payload
         },
-        userAdharAction(state,action){
+        userAdharAction(state, action) {
             state.userAdhar = action.payload
         },
 
@@ -44,6 +44,10 @@ const userSlice = createSlice({
             state.userError = null
             state.user = null
             state.userFavActivities = []
+            state.userFavWithDetails = []
+            state.userFavWithDetailsLoading = true
+            state.userFavWithDetailsError = ''
+            state.userAdhar = false
         }
     }
 })
