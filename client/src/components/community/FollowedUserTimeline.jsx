@@ -11,7 +11,7 @@ function FollowedUserTimeline() {
   const [loading, setLoading] = useState(false);
   const [totalDataLength, setTotalDataLength] = useState(0);
   const [page, setPage] = useState(1);
-  const user_id = useParams().id;
+  const user_id = localStorage.getItem('ClickedId');
   const followedUser = localStorage.getItem('ClickedUser');
   const timelineContainerRef = useRef(null);
   const navigate = useNavigate();

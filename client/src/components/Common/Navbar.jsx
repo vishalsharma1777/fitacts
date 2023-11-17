@@ -4,38 +4,18 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { activityActions } from '../../store/activitySlice';
-import { communityActions } from '../../store/communitySlice';
 import { performanceActions } from '../../store/PerformanceSlice';
-import { signinActions } from '../../store/signinSlice';
-import { signupActions } from '../../store/signupSlice';
-import { tableDataActions } from '../../store/TableDataSlice';
-import { timelineActions } from '../../store/timelineSlice';
-import { userActions } from '../../store/userSlice';
 import { useEffect } from 'react';
 
 export default function Navbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const page = useLocation().pathname.substring(11);
+  const username = localStorage.getItem('user')
   const [alignment, setAlignment] = useState(page);
 
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
-    if (newAlignment === 'logout') {
-      dispatch(activityActions.activityReseter());
-      dispatch(communityActions.communityStateReseter());
-      dispatch(performanceActions.performanceStateReseter());
-      dispatch(signinActions.siginStateReseter());
-      dispatch(signupActions.sigupStateReseter());
-      dispatch(tableDataActions.tableDataStateReseter());
-      dispatch(timelineActions.timelineResetAction());
-      dispatch(userActions.userReseter());
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      localStorage.removeItem('ClickedUser');
-      navigate('/');
-    }
   };
 
   useEffect(() => {
@@ -56,6 +36,7 @@ export default function Navbar() {
   }, [alignment]);
 
   return (
+    <>
     <ToggleButtonGroup
       color='primary'
       value={alignment}
@@ -70,9 +51,10 @@ export default function Navbar() {
       <ToggleButton value='timeline'>TIMELINE</ToggleButton>
       <ToggleButton value='activities'>ACTIVITIES</ToggleButton>
       <ToggleButton value='fitscale'>FIT SCALE</ToggleButton>
-      <ToggleButton value='profile'>PROFILE</ToggleButton>
       <ToggleButton value='community'>COMMUNITY</ToggleButton>
-      <ToggleButton value='logout'>LOGOUT</ToggleButton>
+      <ToggleButton value='profile'>Hi {username}</ToggleButton>
     </ToggleButtonGroup>
+    <div className='below-navbar'>Welcome to FitActs {username}</div>
+    </>
   );
 }

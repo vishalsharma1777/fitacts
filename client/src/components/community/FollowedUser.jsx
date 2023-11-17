@@ -10,8 +10,10 @@ function FollowedUser({ user }) {
   const navigate = useNavigate();
   const openTimeline = () => {
     const clickedUserName = user.name;
+    const clickeduserId= user.user_id;
     localStorage.setItem('ClickedUser', clickedUserName);
-    navigate(`/dashboard/following/timeline/${user.user_id}`);
+    localStorage.setItem('ClickedId', clickeduserId);
+    navigate(`/dashboard/following/timeline`);
   }
 
 

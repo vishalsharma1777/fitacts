@@ -45,7 +45,7 @@ function App() {
               path='/dashboard/forgot-password'
               element={<ResetPasword />}
             />
-            <Route path='/dashboard/following/timeline/:id' element={<FollowedUserTimeline />} />
+            <Route path='/dashboard/following/timeline' element={<FollowedUserTimeline />} />
             <Route path='*' element={<StartingPage />} />
           </Routes>
         </BrowserRouter>
