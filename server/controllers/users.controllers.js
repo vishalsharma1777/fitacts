@@ -29,12 +29,25 @@ const createUser = async (req, res) => {
         [email]
     )
 
+    const mobilenumber = await pool.query(
+        'SELECT mobilenumber FROM users WHERE mobilenumber = $1',
+        [mobileNumber]
+    )
+
     const user = response.rows[0]
     if (user) {
         return res.status(409).json({
             message: 'Email already exists'
         })
     }
+
+    const user1 = mobilenumber.rows[0]
+    if (user1) {
+        return res.status(409).json({
+            message: 'Mobile Number already exists'
+        })
+    }
+    
     try {
         await pool.query(
             'INSERT INTO users (name, email, mobileNumber, height, weight, password,favactivities,timeline,following) VALUES ($1, $2, $3,$4, $5, $6,$7,$8,$9)',
