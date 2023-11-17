@@ -10,6 +10,8 @@ tags:
     description: Activity related endpoints
   - name: Performance
     description: Performance related endpoints
+  - name: Community
+    description: Community related endpoints
 
     
 paths:
@@ -366,7 +368,6 @@ paths:
         '500':
           description: Internal Server Error
 
-
 /user/loginUser :
     post:
       tags:
@@ -477,9 +478,539 @@ paths:
         '500':
           description: Internal Server Error
 
-        
+/performance/userperformance/{user_id}:
+  get:
+   tags:
+    - Performance
+   description: Get all performances of the user by user_id
+   parameters:
+      - name: user_id
+        in: path
+        description: user_id of user to return
+        required: true
+        schema:
+          type: integer
+          format: int
+   responses:
+      '200':
+        description: Success
+        content:
+          application/json:
+            schema:
+              type: array
+            example:
+              - performance_id: 1
+                performancename: "Vishal 1"
+                duration: 10
+                distance: 100
+                speed: 10.0
+                mts: "true"
+                user_id: 1
+                activity_id: 1
+                created_at: 2023-11-11 10:14:14.948
+                activityName: one-leg race
+                calories: 400
+                benifitFor:
+                 - balance
+                image : "https://rehab2perform.com/wp-content/uploads/2021/10/lat-hop-1024x358.jpg"
+              - performance_id: 2
+                performancename: "Vishal 2"
+                duration: 20
+                distance: 200
+                speed: 20.0
+                mts: "true"
+                user_id: 1
+                activity_id: 1
+                created_at: 2023-11-11 10:14:14.948
+                activityName: one-leg race
+                calories: 400
+                benifitFor:
+                 - balance
+                image : "https://rehab2perform.com/wp-content/uploads/2021/10/lat-hop-1024x358.jpg"
+      '404':
+        description: User not found
+      '500':
+        description: Internal Server Error
 
- 
+/performance/userTop5Performances/{user_id}/{activity_id}:
+  get:
+   tags:
+    - Performance
+   description: Get top 5 performances of the user by user_id and activity_id
+   parameters:
+        - name: user_id
+          in: path
+          description: user_id of user to return
+          required: true
+          schema:
+            type: integer
+            format: int
+        - name: activity_id
+          in: path
+          description: activity_id of activity to return
+          required: true
+          schema:
+            type: integer
+            format: int
+   responses:
+      '200':
+        description: Success
+        content:
+          application/json:
+            schema:
+              type: array
+            example:
+              - performance_id: 1
+                performancename: "Vishal 1"
+                duration: 10
+                distance: 100
+                speed: 10.0
+                mts: "true"
+                user_id: 1
+                activity_id: 1
+                created_at: 2023-11-11 10:14:14.948
+                activityName: one-leg race
+                calories: 400
+                benifitFor:
+                 - balance
+                image : "https://rehab2perform.com/wp-content/uploads/2021/10/lat-hop-1024x358.jpg"
+              - performance_id: 2
+                performancename: "Vishal 2"
+                duration: 20
+                distance: 200
+                speed: 20.0
+                mts: "true"
+                user_id: 1
+                activity_id: 1
+                created_at: 2023-11-11 10:14:14.948
+                activityName: one-leg race
+                calories: 400
+                benifitFor:
+                 - balance
+                image : "https://rehab2perform.com/wp-content/uploads/2021/10/lat-hop-1024x358.jpg"
+      '404':
+        description: User not found
+      '500':
+        description: Internal Server Error
+
+/performance/userperformance/{user_id}/{activity_id}:
+  get:
+   tags:
+    - Performance
+   description: Get top 5 performances of the user by user_id and activity_id
+   parameters:
+        - name: user_id
+          in: path
+          description: user_id of user to return
+          required: true
+          schema:
+            type: integer
+            format: int
+        - name: activity_id
+          in: path
+          description: activity_id of activity to return
+          required: true
+          schema:
+            type: integer
+            format: int
+   responses:
+      '200':
+        description: Success
+        content:
+          application/json:
+            schema:
+              type: array
+            example:
+              - performance_id: 1
+                performancename: "Vishal 1"
+                duration: 10
+                distance: 100
+                speed: 10.0
+                mts: "true"
+                user_id: 1
+                activity_id: 1
+                created_at: 2023-11-11 10:14:14.948
+                activityName: one-leg race
+                calories: 400
+                benifitFor:
+                 - balance
+                image : "https://rehab2perform.com/wp-content/uploads/2021/10/lat-hop-1024x358.jpg"
+              - performance_id: 2
+                performancename: "Vishal 2"
+                duration: 20
+                distance: 200
+                speed: 20.0
+                mts: "true"
+                user_id: 1
+                activity_id: 1
+                created_at: 2023-11-11 10:14:14.948
+                activityName: one-leg race
+                calories: 400
+                benifitFor:
+                 - balance
+                image : "https://rehab2perform.com/wp-content/uploads/2021/10/lat-hop-1024x358.jpg"
+      '404':
+        description: User not found
+      '500':
+        description: Internal Server Error
+
+/performance/deleteperformance/{user_id}/{activity_id}/{performance_id}:
+ delete:
+    tags:
+      - Performance
+    description: Delete performance of the user by user_id, activity_id and performance_id
+    parameters:
+          - name: user_id
+            in: path
+            description: user_id of user to return
+            required: true
+            schema:
+              type: integer
+              format: int
+          - name: activity_id
+            in: path
+            description: activity_id of activity to return
+            required: true
+            schema:
+              type: integer
+              format: int
+          - name: performance_id
+            in: path
+            description: performance_id of performance to return
+            required: true
+            schema:
+              type: integer
+              format: int
+    responses:
+        '200':
+          description: Remaining performances of the user
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+              - performance_id: 1
+                performancename: "Vishal 1"
+                duration: 10
+                distance: 100
+                speed: 10.0
+                mts: "true"
+                user_id: 1
+                activity_id: 1
+                created_at: 2023-11-11 10:14:14.948
+                activityName: one-leg race
+                calories: 400
+                benifitFor:
+                 - balance
+                image : "https://rehab2perform.com/wp-content/uploads/2021/10/lat-hop-1024x358.jpg"
+              - performance_id: 2
+                performancename: "Vishal 2"
+                duration: 20
+                distance: 200
+                speed: 20.0
+                mts: "true"
+                user_id: 1
+                activity_id: 1
+                created_at: 2023-11-11 10:14:14.948
+                activityName: one-leg race
+                calories: 400
+                benifitFor:
+                 - balance
+                image : "https://rehab2perform.com/wp-content/uploads/2021/10/lat-hop-1024x358.jpg"
+              
+                
+        '404':
+          description: User not found
+        '500':
+          description: Internal Server Error
+
+/performance/updatetimeline/{user_id}/{performance_id}:
+  put:
+      tags:
+        - Performance
+      description: Update timeline of the user by user_id and performance_id
+      parameters:
+            - name: user_id
+              in: path
+              description: user_id of user to return
+              required: true
+              schema:
+                type: integer
+                format: int
+            - name: performance_id
+              in: path
+              description: performance_id of performance to return
+              required: true
+              schema:
+                type: integer
+                format: int
+      responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                example:
+                  message: Timeline updated successfully
+                  body:
+                    user:
+                      timeline:
+                        - 1
+                        - 2
+                        - 3
+          '404':
+            description: User not found
+          '500':
+            description: Internal Server Error
+
+/performance/createperformance:
+ post:
+  tags:
+      - Performance
+  description: Create performance
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            performanceName:
+              type: string
+              description: Name of the performance
+            duration:
+              type: integer
+              description: Duration of the performance
+            distance:
+              type: integer
+              description: Distance of the performance
+            speed:
+              type: numeric
+              description: Speed of the performance
+            mts:
+              type: boolean
+              description: MTS of the performance
+            user_id:
+              type: integer
+              description: User ID of the user to create performance for
+            activity_id:
+              type: integer
+              description: Activity ID of the activity to create performance for
+  responses:
+      '200':
+        description: all the performances of the user
+        content:
+          application/json:
+            schema:
+              type: array
+            example:
+              - performance_id: 1
+                performanceName: "Vishal 1"
+                duration: 10
+                distance: 100
+                speed: 10.0
+                mts: "true"
+                user_id: 1
+                activity_id: 1
+                created_at: 2023-11-11 10:14:14.948
+              - performance_id: 2
+      '404':
+        description: User not found
+      '500':
+        description: Internal Server Error
+
+/activity/allActivities:
+  get:
+   tags:
+    - Activity
+   description: Get all activities
+   responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+              example:
+                - activity_id: 1
+                  activityName: "Running"
+                  calories: 100
+                  benifitFor: 
+                    - Heart
+                    - Lungs
+                  image: "https://apollohealthlib.blob.core.windows.net/health-library/2021/04/shutterstock_788590396-scaled.jpg"
+                  mts: "true"
+                - activity_id: 2
+                  activityName: "Cycling"
+                  calories: 200
+                  benifitFor: 
+                    - Heart
+                    - Lungs
+                  image: "https://www.bicycling.com/.image/t_share/MTU0ODc4NjYxNjQyNjYwMjI0/road-bike-cycling.jpg"
+                  mts: "true"
+        '500':
+          description: Internal Server Error
+
+/activity/favActivities/{user_id}:
+ get:
+    tags:
+      - Activity
+    description: Get favourite activites of user by user_id
+    parameters:
+          - name: user_id
+            in: path
+            description: user_id of user to return
+            required: true
+            schema:
+              type: integer
+              format: int
+    responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                example:
+                  activity_id: 1
+                  activityName: "Running"
+                  calories: 100
+                  benifitFor: 
+                    - Heart
+                    - Lungs
+                  image: "https://apollohealthlib.blob.core.windows.net/health-library/2021/04/shutterstock_788590396-scaled.jpg"
+                  mts: "true"
+          '404':
+            description: Activities not found
+          '500':
+            description: Internal Server Error
+
+/community/usersWithAllDetails:
+    get:
+      tags:
+        - Community
+      description: Get all users with all details
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+              example:
+                - user_id: 19
+                  name: vishal
+                  email: vishal1@gmail.com
+                  favactivities:
+                    - activity_id: 4
+                      activityName: cycling
+                      calories: 700
+                      benifitFor:
+                        - cardio
+                        - balance
+                      image: "https://hips.hearstapps.com/hmg-prod/images/cyclist-on-the-col-de-la-colombiere-in-the-french-royalty-free-image-1657225929.jpg"
+                      mts: false
+                    - activity_id: 7
+                      activityName: one-leg race
+                      calories: 400
+                      benifitFor:
+                        - balance
+                      image: "https://rehab2perform.com/wp-content/uploads/2021/10/lat-hop-1024x358.jpg"
+                      mts: true
+                - user_id: 20
+                  name: example_user
+                  email: example@example.com
+                  favactivities: []
+        '500':
+          description: Internal Server Error
+
+/community/usersFollowing/{user_id}:
+  get:
+    tags:
+      - Community
+    description: Get users followed by user by user_id
+    parameters:
+          - name: user_id
+            in: path
+            description: user_id of user to return
+            required: true
+            schema:
+              type: integer
+              format: int
+    responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    type: object
+                example:
+                  - user_id": 22
+                    name: kundan
+                    email: kundan@gmail.com
+                    timeline:
+                      - 19
+                  - user_id": 18
+                    name: Himanshu
+                    email: himanshu@gmail.com
+                    timeline:
+                      - 36
+                      - 37
+                      - 38
+                      - 39
+                      - 33
+                      - 40
+                      - 41
+                      - 44
+                      - 43
+                      - 42
+          '404':
+            description: User not found
+          '500':
+            description: Internal Server Error
+
+/community/addOrRemoveFollowing/{user_id}:
+ put:
+  tags:
+    - Community
+  description: Add or remove following of user by user_id
+  parameters:
+        - name: user_id
+          in: path
+          description: user_id of user to return
+          required: true
+          schema:
+            type: integer
+            format: int
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            followingId:
+              type: integer
+              description: User ID of the user to add or remove following for
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+          example:
+            message: follow/unfollow successfully
+    '404':
+      description: User not found
+    '500':
+      description: Internal Server Error
+
 
 components:
   schemas:
