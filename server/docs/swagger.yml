@@ -2,6 +2,333 @@ openapi: 3.1.0
 info:
   title: Fit Acts
   version: 1.0.0
+
+tags:
+  - name: User
+    description: User related endpoints
+  - name: Activity
+    description: Activity related endpoints
+  - name: Performance
+    description: Performance related endpoints
+
+    
+paths:
+
+ /user/allUsers:
+  get:
+    tags:
+      - User
+    description: Get all users
+    responses:
+      '200':
+        description: Success
+        content:
+          application/json:
+            schema:
+              type: array
+            example:
+              - user_id: 17
+                name: "Ayush"
+                email: "ayush@gmail.com"
+                mobilenumber: "9330642122"
+                height: 150
+                password: "$2b$10$wDuSt/SVxQqdZ67GqRYubepcDaVMS3HbRxi9/3k4UT09SRY3YXsxC"
+                aadhar: null
+                timeline: []
+                favactivities:
+                  - 1
+                  - 5
+                weight: 69
+                following: []
+              - user_id: 19
+                name: "vishal"
+                email: "vishal1@gmail.com"
+                mobilenumber: "8345621345"
+                height: 130
+                password: "$2b$10$e.SdwC9Gu3W3pc3IOh.UJ.I36K2xX/L4xbYzIp3dDUzIxZgJ.NidK"
+                aadhar: null
+                timeline: []
+                favactivities:
+                  - 7
+                  - 4
+                weight: 45
+                following: []
+      '500':
+        description: Internal Server Error
+  
+/user/getUserById/{user_id}:
+    get:
+      tags:
+         - User
+      description: Get user by user_id
+      parameters:
+         - name: user_id
+           in: path
+           description: user_id of user to return
+           required: true
+           schema:
+             type: integer
+             format: int
+      responses:
+        '200':
+          description: Success
+          content:
+           application/json:
+            schema:
+              type: object
+            example:
+              name: divanshu
+              email: divanshu@gmail.com
+              user_id: 24
+              mobilenumber: 1234567890
+              height: 153
+              weight: 67
+        '404':
+          description: User not found
+        '500':
+          description: Internal Server Error
+
+/user/getUserFavActivites/{user_id}:
+    get:
+      tags:
+         - User
+      description: Get favactivities of the user by user_id
+      parameters:
+         - name: user_id
+           in: path
+           description: user_id of user to return
+           required: true
+           schema:
+             type: integer
+             format: int
+      responses:
+        '200':
+          description: Success
+          content:
+           application/json:
+            schema:
+              type: object
+            example:
+              message: Favourite Activites Fetched
+              body:
+                favActivities: 
+                  - 1
+                  - 2
+                  - 5
+        '404':
+          description: User not found
+        '500':
+          description: Internal Server Error 
+
+/user/getuserTimeline/{user_id}:
+    get:
+      tags:
+         - User
+      description: Get timeline with the activity detail of the user by user_id
+      parameters:
+         - name: user_id
+           in: path
+           description: user_id of user to return
+           required: true
+           schema:
+             type: integer
+             format: int
+      responses:
+        '200':
+          description: Success
+          content:
+           application/json:
+            schema:
+              type: object
+            example:
+              - performance_id: 3
+                performancename: ayus
+                duration: 4670
+                distance: 12
+                speed: 2.57
+                mts: true
+                user_id: 16
+                activity_id: 7
+                created_at: 2023-11-10T11:28:05.374Z
+                activityName: one-leg race
+                calories: 400
+                benifitFor:
+                  - balance
+                image: https://rehab2perform.com/wp-content/uploads/2021/10/lat-hop-1024x358.jpg
+              - performance_id: 32
+                performancename: t5
+                duration: 12460
+                distance: 12000
+                speed: 963.08
+                mts: false
+                user_id: 16
+                activity_id: 8
+                created_at: 2023-11-14T04:59:00.095Z
+                activityName: trekking
+                calories: 990
+                benifitFor:
+                  - lungs
+                  - concentration
+                image: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgD0VKtgQrj7RE8EfcnSPKdROhzreU-oM4Vknp4CxkHgTbp2A6XnFmYA07Ol_Pe8dy2Fo&usqp=CAU
+        '404':
+          description: User not found
+        '500':
+          description: Internal Server Error         
+
+/user/userTimeline/{user_id}:
+    get:
+      tags:
+         - User
+      description: Get timelined performances of the user by user_id
+      parameters:
+         - name: user_id
+           in: path
+           description: user_id of user to return
+           required: true
+           schema:
+             type: integer
+             format: int
+      responses:
+        '200':
+          description: Success
+          content:
+           application/json:
+            schema:
+              type: object
+            example:
+              message: Favourite Activites Fetched
+              body:
+                timeline: 
+                  - 18
+                  - 22
+                  - 23
+                  - 3
+        '404':
+          description: User not found
+        '500':
+          description: Internal Server Error 
+
+/user/getUserAdhar/{user_id}:
+    get:
+      tags:
+         - User
+      description: Get aadhar card  by user_id
+      parameters:
+         - name: user_id
+           in: path
+           description: user_id of user to return
+           required: true
+           schema:
+             type: integer
+             format: int
+      responses:
+        '200':
+          description: Success
+          content:
+           application/json:
+            schema:
+              type: object
+            example:
+              aadhar: kharcha.pdf
+        '404':
+          description: Aadhar not found
+        '500':
+          description: Internal Server Error
+
+/user/getFollowerTimeline/{user_id}:
+    get:
+      tags:
+         - User
+      description: Get timeline with the activity detail of the user by user_id
+      parameters:
+         - name: user_id
+           in: path
+           description: user_id of user to return
+           required: true
+           schema:
+             type: integer
+             format: int
+      responses:
+        '200':
+          description: Success
+          content:
+           application/json:
+            schema:
+              type: object
+            example:
+              - performance_id: 3
+                performancename: ayus
+                duration: 4670
+                distance: 12
+                speed: 2.57
+                mts: true
+                user_id: 16
+                activity_id: 7
+                created_at: 2023-11-10T11:28:05.374Z
+                activityName: one-leg race
+                calories: 400
+                benifitFor:
+                  - balance
+                image: https://rehab2perform.com/wp-content/uploads/2021/10/lat-hop-1024x358.jpg
+              - performance_id: 32
+                performancename: t5
+                duration: 12460
+                distance: 12000
+                speed: 963.08
+                mts: false
+                user_id: 16
+                activity_id: 8
+                created_at: 2023-11-14T04:59:00.095Z
+                activityName: trekking
+                calories: 990
+                benifitFor:
+                  - lungs
+                  - concentration
+                image: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgD0VKtgQrj7RE8EfcnSPKdROhzreU-oM4Vknp4CxkHgTbp2A6XnFmYA07Ol_Pe8dy2Fo&usqp=CAU
+        '404':
+          description: User not found
+        '500':
+          description: Internal Server Error   
+
+/user/uploadAadhar/{user_id}:
+    put:
+      tags:
+        - User
+      description: Upload Aadhar card by user_id
+      parameters:
+        - name: user_id
+          in: path
+          description: User ID of the user to upload Aadhar card for
+          required: true
+          schema:
+            type: integer
+            format: int
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Aadhar card of the user
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Aadhar card uploaded successfully
+                aadhar: aadhar.pdf
+        '404':
+          description: User not found
+        '500':
+          description: Internal Server Error
+
+
 components:
   schemas:
     users:
@@ -14,11 +341,11 @@ components:
         name:
           type: string
           format: varChar
-          example: "John Doe"
+          example: "Vishal Sharma"
         email:
           type: string
           format: varChar
-          example: "john@gmail.com"
+          example: "vishal@gmail.com"
           uniqueItems: true 
         password:
           type: string
@@ -62,8 +389,8 @@ components:
 
       example: 
         user_id: 1
-        name: "John Doe"
-        email: "john@gmail.com"
+        name: "Vishal Sharma"
+        email: "vishal@gmail.com"
         mobilenumber: 1234567890
         height: 180
         weight: 80
@@ -119,7 +446,7 @@ components:
         performancename:
           type: string
           format: varChar
-          example: "John 1"
+          example: "Vishal 1"
         duration:
           type: integer
           format: int
@@ -150,11 +477,12 @@ components:
 
       example:
         performance_id: 1
-        performancename: "John 1"
+        performancename: "Vishal 1"
         duration: 10
         distance: 100
         speed: 10.0
         mts: "true"
         user_id: 1
         activity_id: 1
-        created_at: 2023-11-11 10:14:14.948
+        
+
