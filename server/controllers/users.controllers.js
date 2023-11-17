@@ -70,7 +70,7 @@ const loginUser = async (req, res) => {
     const { email, password } = req.body
     try {
         const response = await pool.query(
-            'SELECT * FROM users WHERE email = $1',
+            'SELECT name,password,user_id FROM users WHERE email = $1',
             [email]
         )
         const user = response.rows[0]

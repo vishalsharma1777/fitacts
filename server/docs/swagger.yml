@@ -328,6 +328,158 @@ paths:
         '500':
           description: Internal Server Error
 
+/user/updateFavActivity:
+    put:
+      tags:
+        - User
+      description: Update favourite activities of the user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  description: User ID of the user to update favourite activities for
+                favActivity:
+                  type: integer
+                  description: Favourite activities of the user
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Favourite activities updated successfully
+                body:
+                  user:
+                    favActivities:
+                    - 1
+                    - 2
+                    - 3
+        '404':
+          description: User not found
+        '500':
+          description: Internal Server Error
+
+
+/user/loginUser :
+    post:
+      tags:
+        - User
+      description: Login user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: Email of the user
+                password:
+                  type: string
+                  description: Password of the user
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsImlhdCI6MTcwMDIxODU2Nn0.tkpGgq8ekG_UeJLuBvRK3h_2foqP4Y-FSRnB0r3O3lU
+                message: User logged successfully
+                body:
+                  user:
+                    name: Vishal
+                    password: $2b$10$Zi8uluRiRm6hCpmDZaWL3u1uHtY1TW46fFsPPNeQVaUkUKfHKdnBe
+                    user_id: 16
+        '404':
+          description: Invalid Email
+        '401':
+          description: Invalid Password
+        '500':
+          description: Internal Server Error
+
+/user/createUser:
+  post:
+      tags:
+        - User
+      description: Create user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the user
+                email:
+                  type: string
+                  description: Email of the user
+                mobileNumber:
+                  type: integer
+                  description: Mobile number of the user
+                height:
+                  type: integer
+                  description: Height of the user
+                weight:
+                  type: integer
+                  description: Weight of the user
+                password:
+                  type: string
+                  description: Password of the user
+                favactivities:
+                  type: array
+                  description: Favourite activities of the user
+                  items:
+                    type: integer
+                timeline:
+                  type: array
+                  description: Timeline of the user
+                  items:
+                    type: integer
+                following:
+                  type: array
+                  description: Following of the user
+                  items:
+                    type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Signed Up Succesfully
+                body:
+                  user:
+                    name: Vishal
+                    email: vishal@gmail.com
+                    mobileNumber: 1234567890
+                    height: 180
+                    weight: 80
+                    password: $2b$10$wDuSt/SVxQqdZ67GqRYubepcDaVMS3HbRxi9/3k4UT09SRY3YXsxC
+                    favactivities: []
+                    timeline: []
+                    following: []
+        '409':
+          description: User already exists
+        '500':
+          description: Internal Server Error
+
+        
+
+ 
 
 components:
   schemas:
