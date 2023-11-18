@@ -241,7 +241,7 @@ paths:
     get:
       tags:
          - User
-      description: Get timeline with the activity detail of the user by user_id
+      description: INFINITE SCROLLING Get timeline with the activity detail of the user by user_id
       parameters:
          - name: user_id
            in: path
@@ -250,6 +250,12 @@ paths:
            schema:
              type: integer
              format: int
+         - name: page
+           in: query
+           description: Page number for pagination (default is 1)
+           schema:
+            type: integer
+            default: 1      
       responses:
         '200':
           description: Success
