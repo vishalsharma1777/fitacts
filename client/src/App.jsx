@@ -11,8 +11,9 @@ import Profile from './pages/Profile';
 import { useEffect } from 'react';
 import TimeineContainer from './pages/TimelineContainer';
 import TopFivePerformance from './pages/TopFivePerformances';
-import Community from './pages/Community'
+import Community from './pages/Community';
 import FollowedUserTimeline from './components/community/FollowedUserTimeline';
+import Requests from './pages/Requests';
 
 function App() {
   const theme = createTheme({
@@ -41,11 +42,16 @@ function App() {
             <Route path='/dashboard/fitscale' element={<Fitscale />} />
             <Route path='/dashboard/profile' element={<Profile />} />
             <Route path='/dashboard/community' element={<Community />} />
+            <Route path='/dashboard/requests' element={<Requests />} />
+
             <Route
               path='/dashboard/forgot-password'
               element={<ResetPasword />}
             />
-            <Route path='/dashboard/following/timeline' element={<FollowedUserTimeline />} />
+            <Route
+              path='/dashboard/following/timeline'
+              element={<FollowedUserTimeline />}
+            />
             <Route path='*' element={<StartingPage />} />
           </Routes>
         </BrowserRouter>

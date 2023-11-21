@@ -42,6 +42,8 @@ function SignUpPage({setAlignment}) {
     favactivities:{},
     timeline:{},
     following:{},
+    sendrequests:{},
+    receivedrequests:{},
   });
   const signUpState = useSelector((state) => state.signUp);
   const handleChange = (prop) => (event) => {

@@ -8,6 +8,7 @@ import Peoples from '../components/community/Peoples';
 import Following from '../components/community/Following';
 import { useLocation } from 'react-router-dom';
 import StartingPage from './StartingPage';
+import Pending from '../components/community/Pending';
 
 function community() {
   const [alignment, setAlignment] = React.useState('peoples');
@@ -43,11 +44,13 @@ function community() {
         >
           <ToggleButton value='peoples'>Peoples</ToggleButton>
           <ToggleButton value='following'>Following</ToggleButton>
+          <ToggleButton value='pending'>Pending</ToggleButton>
         </ToggleButtonGroup>
       </div>
       <div className='community-divider'>
         {alignment == 'peoples' && <Peoples alignment={alignment} />}
         {alignment == 'following' && <Following />}
+        {alignment == 'pending' && <Pending/>}
       </div>
     </>
   );

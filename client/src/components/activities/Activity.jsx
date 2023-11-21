@@ -39,6 +39,7 @@ function Activity({ activity }) {
     };
     updateFavActivity(updatingDetails)
       .then((res) => {
+        console.log("activity updated");
       })
       .catch((err) => {
         console.log(err);
@@ -56,7 +57,7 @@ function Activity({ activity }) {
       <Card sx={{ maxWidth: 345 }}>
         <CardMedia
           component='img'
-          alt='green iguana'
+          alt={name.toUpperCase()}
           height='140'
           image={image}
         />

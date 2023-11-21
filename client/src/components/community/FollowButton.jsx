@@ -1,45 +1,71 @@
 import { Button } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { jwtDecode } from 'jwt-decode';
-import { addOrRemoveFollowing } from '../../apis/communityApi';
+import { requestAction } from '../../apis/requestsApi';
 import { useEffect, useState } from 'react';
+import { getStatus } from '../../apis/requestsApi';
 
-function FollowButton({ user_id }) {
-  const [following, setFollowing] = useState(false);
-  const communityState = useSelector((state) => state.community);
+function FollowButton({ user_id , following, sendRequest, setFollowing, setSendRequest}) {
   const currentUser_id = jwtDecode(localStorage.getItem('token')).id;
-  useEffect(() => {
-    if (
-      communityState.community
-        .find((user) => user.user_id === currentUser_id)
-        .following.includes(user_id)
-    ) {
-      setFollowing(true);
+  // const [following, setFollowing] = useState([]);
+  // const [sendRequest, setSendRequest] = useState([]);
+  
+
+
+  let buttonColor = 'success';
+  let buttonText = 'Follow';
+  let nextAction = 'sendrequest';
+
+    if (following.includes(user_id)) {
+      buttonColor = 'error';
+      buttonText = 'Unfollow';
+      nextAction = 'unfollow';
     }
-  }, [communityState.community, currentUser_id, user_id]);
+  
+    if (sendRequest.includes(user_id)) {
+      buttonColor = 'warning';
+      buttonText = 'Requested';
+      nextAction = 'cancelrequest';
+    }
+
+  
+
+
+  console.log(following, sendRequest);
+
+
 
   const handleFollow = () => {
-    document.getElementById(user_id).disabled = true;
-    document.getElementById(user_id).innerHTML = 'Updating...';
-    addOrRemoveFollowing(currentUser_id, user_id).then((res) => {
-      document.getElementById(user_id).disabled = false;
-      document.getElementById(user_id).innerHTML = following
-        ? 'Follow'
-        : 'Unfollow';
-      setFollowing(!following);
-    });
-  };
+    console.log("triggered");
+    requestAction(currentUser_id, user_id, nextAction)
+      .then((res) => {
+        console.log(res);
+        if (res.status == 200) {
+          if (nextAction === 'sendrequest') {
+            setSendRequest([...sendRequest, user_id]);
+            buttonColor = 'warning';
+            buttonText = 'Requested';
+            nextAction = 'cancelrequest';
+
+          } else if (nextAction === 'unfollow') {
+            setFollowing(following.filter((id) => id !== user_id));
+            buttonColor = 'success';
+            buttonText = 'Follow';
+            nextAction = 'sendrequest';
+          } else if (nextAction === 'cancelrequest') {
+            setSendRequest(sendRequest.filter((id) => id !== user_id));
+            buttonColor = 'success';
+            buttonText = 'Follow';
+            nextAction = 'sendrequest';
+          }
+        }
+      })
+      .catch((err) => console.log(err));
+  }
 
   return (
     <div>
-      <Button
-        id={user_id}
-        variant='contained'
-        color={following ? 'error' : 'success'}
-        onClick={handleFollow}
-      >
-        {following ? 'Unfollow' : 'Follow'}
-      </Button>
+      <Button id={user_id} variant='contained' color={buttonColor} onClick={handleFollow}>{buttonText}</Button>
     </div>
   );
 }

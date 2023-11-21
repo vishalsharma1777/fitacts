@@ -10,15 +10,17 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import FollowButton from './FollowButton';
 import { communityActions } from '../../store/communitySlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { getStatus } from '../../apis/requestsApi';
 
 function Peoples({ alignment }) {
   const dispatch = useDispatch();
   const communityState = useSelector((state) => state.community);
   const user_id = jwtDecode(localStorage.getItem('token')).id;
+  const [following, setFollowing] = useState([]);
+  const [sendRequest, setSendRequest] = useState([]);
 
   useEffect(() => {
     dispatch(communityActions.communityStateReseter());
-
     getUsersWithAllDetails()
       .then((res) => {
         dispatch(communityActions.getcommunitySuccess(res.data));
@@ -26,6 +28,13 @@ function Peoples({ alignment }) {
       .catch((err) => {
         dispatch(communityActions.getcommunityFailure(err.message));
       });
+
+    getStatus(user_id)
+      .then((res) => {
+        setFollowing(res.data.following);
+        setSendRequest(res.data.requested);
+      })
+      .catch((err) => console.log(err));
 
     document.title = 'Fit Acts | community';
   }, [alignment]);
@@ -51,13 +60,22 @@ function Peoples({ alignment }) {
                 />
                 <ListItemText
                   sx={{ width: '60%' }}
-                  primary={user.favactivities.map((activity,index) => {
+                  primary={user.favactivities.map((activity, index) => {
                     return (
-                      <Button key={index}>{activity.activityName.toUpperCase()}</Button>
+                      <Button key={index}>
+                        {activity.activityName.toUpperCase()}
+                      </Button>
                     );
                   })}
                 />
-                <FollowButton user_id={user.user_id} alignment={alignment} />
+                <FollowButton
+                  user_id={user.user_id}
+                  alignment={alignment}
+                  following={following}
+                  setFollowing={setFollowing}
+                  sendRequest={sendRequest}
+                  setSendRequest={setSendRequest}
+                />
               </ListItem>
               <Divider />
             </div>

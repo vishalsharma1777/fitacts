@@ -15,6 +15,8 @@ const createUserTable = async() => {
     timeline integer [],
     favactivities integer [],
     following integer [],
+    sendrequests integer [],
+    receivedrequests integer [],
     weight integer,
     CONSTRAINT users_pkey PRIMARY KEY (user_id)
 )

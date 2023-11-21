@@ -32,6 +32,8 @@ export default function Navbar() {
       navigate('/dashboard/profile');
     } else if (alignment === 'community') {
       navigate('/dashboard/community');
+    } else if (alignment === 'requests') {
+      navigate('/dashboard/requests');
     }
   }, [alignment]);
 
@@ -52,6 +54,7 @@ export default function Navbar() {
       <ToggleButton value='activities'>ACTIVITIES</ToggleButton>
       <ToggleButton value='fitscale'>FIT SCALE</ToggleButton>
       <ToggleButton value='community'>COMMUNITY</ToggleButton>
+      <ToggleButton value='requests'>REQUESTS</ToggleButton>
       <ToggleButton value='profile'>Hi {username}</ToggleButton>
     </ToggleButtonGroup>
     <div className='below-navbar'>Welcome to FitActs {username}</div>

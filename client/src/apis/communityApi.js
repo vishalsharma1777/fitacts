@@ -12,3 +12,6 @@ export const addOrRemoveFollowing = (id, followingId) => {
     return axios.put(`http://localhost:3000/community/addOrRemoveFollowing/${id}`, { followingId })
 }
 
+
+
+

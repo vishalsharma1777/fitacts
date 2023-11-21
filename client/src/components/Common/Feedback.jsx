@@ -2,7 +2,6 @@ import * as React from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
 import { signinActions } from '../../store/signinSlice';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -11,7 +10,6 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 function FeedBack() {
   const [openSnackBar, setOpenSnackBar] = React.useState(false);
-  //   const [message,setMessage] = useState('')
   const dispatch = useDispatch();
   let severity = 'success';
   const signinState = useSelector((state) => state.signIn);
