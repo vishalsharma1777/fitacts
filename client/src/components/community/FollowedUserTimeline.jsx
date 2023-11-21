@@ -16,6 +16,7 @@ function FollowedUserTimeline() {
   const timelineContainerRef = useRef(null);
   const navigate = useNavigate();
 
+
   if (!localStorage.getItem('token')) {
     return <StartingPage />;
   }

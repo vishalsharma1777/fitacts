@@ -1,14 +1,9 @@
 import { Button } from '@mui/material';
-import { useSelector } from 'react-redux';
 import { jwtDecode } from 'jwt-decode';
 import { requestAction } from '../../apis/requestsApi';
-import { useEffect, useState } from 'react';
-import { getStatus } from '../../apis/requestsApi';
 
 function FollowButton({ user_id , following, sendRequest, setFollowing, setSendRequest}) {
   const currentUser_id = jwtDecode(localStorage.getItem('token')).id;
-  // const [following, setFollowing] = useState([]);
-  // const [sendRequest, setSendRequest] = useState([]);
   
 
 
@@ -28,18 +23,10 @@ function FollowButton({ user_id , following, sendRequest, setFollowing, setSendR
       nextAction = 'cancelrequest';
     }
 
-  
-
-
-  console.log(following, sendRequest);
-
-
-
   const handleFollow = () => {
     console.log("triggered");
     requestAction(currentUser_id, user_id, nextAction)
       .then((res) => {
-        console.log(res);
         if (res.status == 200) {
           if (nextAction === 'sendrequest') {
             setSendRequest([...sendRequest, user_id]);
